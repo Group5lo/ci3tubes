@@ -29,7 +29,6 @@
               <ul class="post_meta" style="margin:0">
                 <li class="post_meta_admin"><a href="#"><?php echo $key->brand_name ?></a></li>
                 <li class="post_meta_date"><a href="#"><?php echo $key->post_date ?></a></li>
-                <li class="post_meta_comments"><a href="#">12</a></li>
               </ul>
               <p>Ini adalah gadget yang ada disini dan mangkanya ada lo hehehe bagus to.</p>
                   <div class="btn-group">

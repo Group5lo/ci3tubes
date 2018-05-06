@@ -60,7 +60,7 @@ jQuery.noConflict()(function ($) {
         </ol>
       </li>
       <!-- end sub menu -->
-      <li><a href="#">Brand</a>
+      <li><a href="<?php echo site_url() ?>brand">Brand</a>
         <!-- sub menu -->
         <ol>
           <li><?php echo anchor('brand/create', 'Add Brand'); ?></li>
