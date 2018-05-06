@@ -16,42 +16,42 @@
 					<?php echo form_open_multipart( 'gadget/create', array('class' => 'needs-validation', 'novalidate' => '') ); ?>
 					<div class="form-group">
 						<label for="title">Tipe</label>
-						<input type="text" class="form-control" name="tipe" value="<?php echo set_value('title') ?>" required>
+						<input type="text" class="form-control" name="tipe" value="<?php echo set_value('tipe') ?>" required>
 						<div class="invalid-feedback">Isi tipe dulu ya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Kecepatan CPU</label>
-						<input type="text" class="form-control" name="keccpu" value="<?php echo set_value('title') ?>" required>
+						<input type="text" class="form-control" name="keccpu" value="<?php echo set_value('keccpu') ?>" required>
 						<div class="invalid-feedback">Isi kecepatannya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">RAM</label>
-						<input type="number" class="form-control" name="ram" value="<?php echo set_value('title') ?>" required>
+						<input type="number" class="form-control" name="ram" value="<?php echo set_value('ram') ?>" required>
 						<div class="invalid-feedback">Isi RAM dulu ya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Battery</label>
-						<input type="text" class="form-control" name="battery" value="<?php echo set_value('title') ?>" required>
+						<input type="text" class="form-control" name="battery" value="<?php echo set_value('battery') ?>" required>
 						<div class="invalid-feedback">Isi detail batrenya dulu ya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Kamera Depan</label>
-						<input type="text" class="form-control" name="frontcam" value="<?php echo set_value('title') ?>" required>
+						<input type="text" class="form-control" name="frontcam" value="<?php echo set_value('frontcam') ?>" required>
 						<div class="invalid-feedback">Isi kamera depannya dulu ya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Kamera Belakang</label>
-						<input type="text" class="form-control" name="backcam" value="<?php echo set_value('title') ?>" required>
+						<input type="text" class="form-control" name="backcam" value="<?php echo set_value('backcam') ?>" required>
 						<div class="invalid-feedback">Isi kamera belakang dulu ya</div>
 					</div>
 					<div class="form-group">
 						<label for="title">Internal Memory</label>
-						<input type="text" class="form-control" name="int" value="<?php echo set_value('title') ?>" required>
+						<input type="number" class="form-control" name="int" value="<?php echo set_value('int') ?>" required>
 						<div class="invalid-feedback">Isi memory internalnya ya</div>
 					</div>
 					<div class="form-group">
 						<label>Brand</label>
-						<?php echo form_dropdown('brand_id', $categories, set_value('cat_id'), 'class="form-control" required' ); ?>
+						<?php echo form_dropdown('brand_id', $brand, set_value('brand_id'), 'class="form-control" required' ); ?>
 						<div class="invalid-feedback">Pilih dulu kategorinya gan</div>
 					</div>
 					<div class="form-group">

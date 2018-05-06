@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div id="container">
-  <div class="one-half">
+  <div class="one">
     <div class="heading_bg">
       <h2>Contact</h2>
     </div>

@@ -21,10 +21,38 @@ class Gadget extends CI_Controller {
 		$data['page_title'] = 'GADGET LIST'; 
 		
 		// Dapatkan data dari model Blog
-		$data['all_artikel'] = $this->gadget_model->get_all_gadget();
+		$data['all_gadget'] = $this->gadget_model->get_all_gadget();
 
 		$this->load->view("templates/v_header");
 		$this->load->view('gadget/gadget_view',$data);
+		$this->load->view("templates/v_footer");
+	}
+
+	public function lihat_detail($kategori, $id)
+	{
+		// Jika kita akses:
+		// http://localhost/ci3-course/blog/lihat_detail/berita/2
+		// Maka "lihat_detail" adalah fungsi ini, "berita" adalah "kategori" dan 2 dianggap id berita
+		echo $kategori;
+		echo '<br>';
+		echo $id;
+	}
+
+	public function read($slug='')
+	{
+
+		// Mendapatkan data dari model
+		$data['page_title'] = 'GADGET DETAIL'; 
+		$data['gadget'] = $this->gadget_model->get_gadget_by_slug($slug);
+
+		// Jika slug kosong atau tidak ada di db, lempar user ke halaman 404
+		if ( empty($slug) || !isset($data['gadget']) ) show_404();
+
+		$this->load->view("templates/v_header");
+
+		// Passing data ke view
+		$this->load->view('gadget/gadget_read', $data);
+
 		$this->load->view("templates/v_footer");
 	}
 
@@ -38,20 +66,15 @@ class Gadget extends CI_Controller {
 		$this->load->library('form_validation');
 
 		// Gunakan fungsi dari model untuk mengisi data dalam dropdown
-		$data['categories'] = $this->brand_model->generate_cat_dropdown();
+		$data['brand'] = $this->brand_model->generate_brand_dropdown();
 
 	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
-	    $this->form_validation->set_rules('title', 'Judul', 'required|is_unique[blogs.post_title]',
+	    $this->form_validation->set_rules('tipe', 'Tipe', 'required|is_unique[gadget_table.post_name]',
 			array(
 				'required' 		=> 'Isi %s donk, males amat.',
-				'is_unique' 	=> 'Judul <strong>' .$this->input->post('title'). '</strong> sudah ada bosque.'
+				'is_unique' 	=> 'Tipe <strong>' .$this->input->post('tipe'). '</strong> sudah ada bosque.'
 			));
 
-		$this->form_validation->set_rules('text', 'Konten', 'required|min_length[8]',
-			array(
-				'required' 		=> 'Isi %s lah, hadeeh.',
-				'min_length' 	=> 'Isi %s kurang panjang bosque.',
-			));
 
 	    // Cek apakah input valid atau tidak
 	    if ($this->form_validation->run() === FALSE)
@@ -82,9 +105,9 @@ class Gadget extends CI_Controller {
     	        	$post_image = '';
 
     	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
-    	            $this->load->view('templates/header');
-    	            $this->load->view('blogs/blog_create', $data);
-    	            $this->load->view('templates/footer'); 
+    	            $this->load->view('templates/v_header');
+    	            $this->load->view('gadget/gadget_create', $data);
+    	            $this->load->view('templates/v_footer'); 
 
     	        } else {
 
@@ -103,25 +126,30 @@ class Gadget extends CI_Controller {
 	    	// Misal judul: "Hello World", kita format menjadi "hello-world"
 	    	// Nantinya, URL blog kita menjadi mudah dibaca 
 	    	// http://localhost/ci3-course/blog/hello-world
-	    	$slug = url_title($this->input->post('title'), 'dash', TRUE);
+	    	$slug = url_title($this->input->post('tipe'), 'dash', TRUE);
 
 	    	$post_data = array(
-				'fk_cat_id' => $this->input->post('cat_id'),
-	    	    'post_title' => $this->input->post('title'),
+				'fk_brand_id' => $this->input->post('brand_id'),
+	    	    'post_name' => $this->input->post('tipe'),
 	    	   	'post_date' => date("Y-m-d H:i:s"),
 	    	    'post_slug' => $slug,
-	    	    'post_content' => $this->input->post('text'),
+	    	    'post_keccpu' => $this->input->post('keccpu'),
+	    	    'post_ram' => $this->input->post('ram'),
+	    	    'post_battery' => $this->input->post('battery'),
+	    	    'post_frontcam' => $this->input->post('frontcam'),
+	    	    'post_backcam' => $this->input->post('backcam'),
+	    	    'post_int' => $this->input->post('int'),
 	    	    'post_thumbnail' => $post_image,
 	    	   	'date_created' => date("Y-m-d H:i:s"),
 	    	);
 
 	    	// Jika tidak ada error upload gambar, maka kita insert ke database via model Blog 
 	    	if( empty($data['upload_error']) ) {
-		        $this->blog_model->create_gadget($post_data);
+		        $this->gadget_model->create_gadget($post_data);
 
-		        $this->load->view('templates/header');
-		        $this->load->view('blogs/blog_success', $data);
-		        $this->load->view('templates/footer'); 
+		        $this->load->view('templates/v_header');
+		        $this->load->view('gadget/gadget_success', $data);
+		        $this->load->view('templates/v_footer'); 
 	    	}
 	    }
 	}

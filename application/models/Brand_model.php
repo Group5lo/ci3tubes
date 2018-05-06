@@ -55,7 +55,7 @@ class Brand_model extends CI_Model
         }
     }
 
-    public function generate_cat_dropdown()
+    public function generate_brand_dropdown()
     {
 
         // Mendapatkan data ID dan nama kategori saja

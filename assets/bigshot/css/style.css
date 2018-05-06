@@ -525,7 +525,7 @@ a.nivo-prevNav {background:url(../img/slide-next-prev.png) left no-repeat;left:5
 	float:left;
 	position: relative;
 }
-#grid .last-grid{margin-right:0px;}
+#grid .last-grid{margin-right:2px;}
 
 
 /**************************************************************************************/
@@ -571,7 +571,7 @@ a.nivo-prevNav {background:url(../img/slide-next-prev.png) left no-repeat;left:5
 	width:135px;
 }
 .last { 
-	margin-right: 0px!important;
+	margin-right: 20px!important;
 }
 
 /* boxes */
