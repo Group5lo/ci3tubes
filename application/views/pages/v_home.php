@@ -85,7 +85,7 @@
   </ul>
   <div style="clear:both; height: 40px"></div>
   <div class="box_highlight">
-    <h1 style="font-size:28px; letter-spacing: 16px; padding-top: 20px; text-align:center; text-transform: uppercase; color: #a7a7a7"> ANJING </h1>
+    <h1 style="font-size:28px; letter-spacing: 16px; padding-top: 20px; text-align:center; text-transform: uppercase; color: #a7a7a7"> WEB FRAMEWORK </h1>
   </div>
   <div style="clear:both; height: 40px"></div>
 </div>

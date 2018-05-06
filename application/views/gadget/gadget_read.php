@@ -30,7 +30,7 @@
               <h3><?php echo ( $gadget->post_int ) ?> GB</h3>
               <hr>
               <a href="<?php echo site_url( 'gadget/edit/'.$gadget->post_id) ?>" class="button">Edit</a>
-              <a href="<?php echo site_url( 'gadget/delete/'.$gadget->post_id) ?>" style="background:red;" class="button">Hapus</a>
+              <a href="<?php echo site_url( 'gadget/delete/'.$gadget->post_id) ?>" class="button">Hapus ??</a>
               <hr>
     </center>
 
