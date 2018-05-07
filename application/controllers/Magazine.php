@@ -13,6 +13,7 @@ class Magazine extends CI_Controller {
 		// dapat dipanggil oleh semua method yang ada pada class ini
 		$this->load->helper('MY');
 		$this->load->model('artikel');
+		$this->load->model('category_model');
 	}
 
 	public function index()
@@ -35,6 +36,7 @@ class Magazine extends CI_Controller {
 
 		$this->load->model('artikel');
 		$data['detail'] = $this->artikel->get_single($id);
+		$data['category'] = $this->category_model->get_all_category();
 
 		$this->load->view("templates/v_header");
 		$this->load->view('magazine/magazine_read', $data);
