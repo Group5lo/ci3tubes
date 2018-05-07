@@ -13,7 +13,7 @@
     <h3>Team</h3>
     <ul class="footer_links">
       <li><a href="#">Ade Fajar Ramadhani</a></li>
-      <li><a href="#">Alifia Dinda </a></li>
+      <li><a href="#">Alifia Dinda Rahmani</a></li>
       <li><a href="#">Muchsin Alkatiri</a></li>
     </ul>
   </div>

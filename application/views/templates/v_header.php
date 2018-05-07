@@ -45,11 +45,10 @@ jQuery.noConflict()(function ($) {
     <!-- Main Menu -->
     <ol id="menu">
       <li><a href="<?php echo site_url() ?>">Home</a></li>
-      <li><a href="#">Magazine</a>
+      <li><a href="magazine">Magazine</a>
         <!-- sub menu -->
         <ol>
-          <li><a href="magazine.html">Add Magazine</a></li>
-          <li><a href="blog.html">Add Category</a></li>
+          <li><?php echo anchor('magazine/create', 'Add Magazine'); ?></li>
         </ol>
       </li>
       <!-- end sub menu -->
