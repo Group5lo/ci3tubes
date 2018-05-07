@@ -75,17 +75,61 @@ class Magazine extends CI_Controller {
 			array(
 				'required' 		=> 'Isi %s lah, hadeeh.',
 			));
-	    // Cek apakah input valid atau tidak
-	    if ($this->form_validation->run() === FALSE)
+	    
+		if ($this->form_validation->run() === FALSE)
 	    {
 	        $this->load->view('templates/v_header');
 	        $this->load->view('magazine/form_tambah', $data);
 	        $this->load->view('templates/v_footer');
-	    } 
-	    else {            
-		 	 	$this->artikel->create();            
-		 	 	redirect('magazine');        
-		}    
+	    } else {
+    		// Apakah user upload gambar?
+    		if ( isset($_FILES['image']) && $_FILES['image']['size'] > 0 )
+    		{
+    			// Konfigurasi folder upload & file yang diijinkan
+    			// Jangan lupa buat folder uploads di dalam ci3-course
+    			$config['upload_path']          = './img/';
+    	        $config['allowed_types']        = 'gif|jpg|png';
+    	        $config['max_size']             = 2048;
+    	        // Load library upload
+    	        $this->load->library('upload', $config);
+    	        // Apakah file berhasil diupload?
+    	        if ( ! $this->upload->do_upload('image'))
+    	        {
+    	        	$data['upload_error'] = $this->upload->display_errors();
+    	        	$post_image = '';
+    	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
+    	            $this->load->view('templates/v_header');
+    	            $this->load->view('magazine/form_tambah', $data);
+    	            $this->load->view('templates/v_footer'); 
+    	        } else {
+    	        	// Simpan nama file-nya jika berhasil diupload
+    	            $img_data = $this->upload->data();
+    	            $post_image = $img_data['file_name'];
+    	        	
+    	        }
+    		} else {
+    			// User tidak upload gambar, jadi kita kosongkan field ini
+    			$post_image = '';
+    		}
+	    	// Memformat slug sebagai alamat URL, 
+	    	// Misal judul: "Hello World", kita format menjadi "hello-world"
+	    	// Nantinya, URL blog kita menjadi mudah dibaca 
+	    	// http://localhost/ci3-course/blog/hello-world
+	    	$post_data = array(
+	    	    'judul_magazine' => $this->input->post('judul_magazine'),
+	    	    'tanggal' => $this->input->post('tanggal'),
+	    	    'content' => $this->input->post('content'),
+	    	    'image' => $post_image,
+	    	    'sumber' => $this->input->post('sumber'),
+	    	);
+	    	// Jika tidak ada error upload gambar, maka kita insert ke database via model Blog 
+	    	if( empty($data['upload_error']) ) {
+		        $this->artikel->create_magazine($post_data);
+		        $this->load->view('templates/v_header');
+		        $this->load->view('magazine/magazine_success', $data);
+		        $this->load->view('templates/v_footer'); 
+	    	}
+	    }
 	}
 
 	
@@ -96,25 +140,99 @@ class Magazine extends CI_Controller {
 		redirect('magazine');
 	}
 
-		public function edit($id){
-		$data['page_title'] = 'Edit Magazine';
+	
 
+		public function edit($id = NULL)
+	{
+
+		$data['page_title'] = 'MAGAZINE EDIT';
+
+		// Get artikel dari model berdasarkan $id
+		$data['artikel'] = $this->artikel->get_magazine_by_id($id);
+		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman list brand
+		if ( empty($id) || !$data['artikel'] ) redirect('magazine');
+
+		$old_image = $data['artikel']->image;
 		// Kita butuh helper dan library berikut
-		$this->load->library('form_validation');
-		$this->load->model("artikel");
-		$data['tipe'] = "Edit";
-		$data['default'] = $this->artikel->get_single($id);
+	    $this->load->helper('form');
+	    $this->load->library('form_validation');
 
-		if(isset($_POST['simpan'])){
-			$this->artikel->update($_POST, $id);
-			redirect("magazine");
-		}
+	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
+		$this->form_validation->set_rules('judul_magazine', 'Judul Magazine', 'required',
+			array('required' => 'Isi %s donk, males amat.'));
+	    	$this->form_validation->set_rules('tanggal', 'Tanggal', 'required',
+			array('required' => 'Isi %s donk, males amat.'));
+				$this->form_validation->set_rules('content', 'content', 'required',
+			array('required' => 'Isi %s donk, males amat.'));
+				$this->form_validation->set_rules('image', 'image', 'required',
+			array('required' => 'Isi %s donk, males amat.'));
+					$this->form_validation->set_rules('sumber', 'sumber', 'required',
+			array('required' => 'Isi %s donk, males amat.'));
 
-		$this->load->view("templates/v_header");
-		$this->load->view('magazine/form_edit',$data);
-		$this->load->view("templates/v_footer");
+
+	    if ($this->form_validation->run() === FALSE)
+	    {
+	        $this->load->view('templates/v_header');
+	        $this->load->view('magazine/form_edit', $data);
+	        $this->load->view('templates/v_footer');
+	    } else {
+    		// Apakah user upload gambar?
+    		if ( isset($_FILES['image']) && $_FILES['image']['size'] > 0 )
+    		{
+    			// Konfigurasi folder upload & file yang diijinkan
+    			// Jangan lupa buat folder uploads di dalam ci3-course
+    			$config['upload_path']          = './img/';
+    	        $config['allowed_types']        = 'gif|jpg|png';
+    	        $config['max_size']             = 2048;
+    	        $config['max_width']            = 1000;
+    	        $config['max_height']           = 2000;
+    	        // Load library upload
+    	        $this->load->library('upload', $config);
+    	        // Apakah file berhasil diupload?
+    	        if ( ! $this->upload->do_upload('image'))
+    	        {
+    	        	$data['upload_error'] = $this->upload->display_errors();
+    	        	$post_image = '';
+    	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
+    	            $this->load->view('templates/v_header');
+    	            $this->load->view('magazine/form_edit', $data);
+    	            $this->load->view('templates/v_footer'); 
+    	        } else {
+    	        	// Hapus file image yang lama jika ada
+    	        	if( !empty($old_image) ) {
+    	        		if ( file_exists( './img/'.$old_image ) ){
+    	        		    unlink( './img/'.$old_image );
+    	        		} else {
+    	        		    echo 'File tidak ditemukan.';
+    	        		}
+    	        	}
+    	        	// Simpan nama file-nya jika berhasil diupload
+    	            $img_data = $this->upload->data();
+    	            $post_image = $img_data['file_name'];
+    	        	
+    	        }
+    		} else {
+    			// User tidak upload gambar, jadi kita kosongkan field ini, atau jika sudah ada, gunakan image sebelumnya
+    			$post_image = ( !empty($old_image) ) ? $old_image : '';
+    		}
+
+	    	$post_data = array(
+	    	    'judul_magazine' => $this->input->post('judul_magazine'),
+	    	    'tanggal' => $this->input->post('tanggal'),
+	    	    'content' => $this->input->post('content'),
+	    	    'image' => $post_image,
+	    	    'sumber' => $this->input->post('sumber'),
+	    	);
+	    	// Jika tidak ada error upload gambar, maka kita update datanya 
+	    	if( empty($data['upload_error']) ) {
+	    		// Update artikel sesuai post_data dan id-nya
+		        $this->artikel->update_magazine($post_data, $id);
+		        $this->load->view('templates/v_header');
+		        $this->load->view('magazine/magazine_success', $data);
+		        $this->load->view('templates/v_footer'); 
+	    	}
+	    }
 	}
 
-//Gunakan fungsi dari model untuk mengisi data dalam dropdown
 
 }

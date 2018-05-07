@@ -16,27 +16,27 @@
 					<?php echo form_open_multipart('magazine/edit', array('class' => 'needs-validation', 'novalidate' => '') ); ?>
 						<div class="form-group">
             <label for="title">Judul Magazine</label>
-            <input type="text" class="form-control" name="judul_magazine" value="<?php echo set_value('judul_magazine') ?>" required>
+            <input type="text" class="form-control" name="judul_magazine" value="<?php echo set_value('judul_magazine',$artikel->judul_magazine) ?>" required>
             <div class="invalid-feedback">Isi judul dulu ya</div>
           </div>
           <div class="form-group">
             <label for="title">Tanggal</label>
-            <input type="text" class="form-control" name="tanggal" value="<?php echo set_value('tanggal') ?>" required>
+            <input type="date" class="form-control" name="tanggal" value="<?php echo set_value('tanggal',$artikel->tanggal) ?>" required>
             <div class="invalid-feedback">Isi tanggal</div>
           </div>
           <div class="form-group">
             <label for="title">Content</label>
-            <input type="text" class="form-control" name="content" value="<?php echo set_value('content') ?>" required>
+            <input type="text" class="form-control" name="content" value="<?php echo set_value('content',$artikel->content) ?>" required>
             <div class="invalid-feedback">Isi content</div>
           </div>
           <div class="form-group">
             <label for="title">Sumber</label>
-            <input type="text" class="form-control" name="sumber" value="<?php echo set_value('sumber') ?>" required>
+            <input type="text" class="form-control" name="sumber" value="<?php echo set_value('sumber',$artikel->sumber) ?>" required>
             <div class="invalid-feedback">Isi sumber</div>
           </div>
 					<div class="form-group">
 						<?php if( $artikel->image ) : ?>
-						<img class="card-img-top" src="<?php echo base_url() .'uploads/'. $default->image ?>" alt="Card image cap" width=300>
+						<img class="card-img-top" src="<?php echo base_url() .'img/'. $artikel->image ?>" alt="Card image cap" width=300>
 						<?php endif; ?>
 
 						<label for="thumbnail">Image</label>

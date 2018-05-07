@@ -45,7 +45,7 @@ jQuery.noConflict()(function ($) {
     <!-- Main Menu -->
     <ol id="menu">
       <li><a href="<?php echo site_url() ?>">Home</a></li>
-      <li><a href="magazine">Magazine</a>
+      <li><a href="<?php echo site_url() ?>magazine">Magazine</a>
         <!-- sub menu -->
         <ol>
           <li><?php echo anchor('magazine/create', 'Add Magazine'); ?></li>

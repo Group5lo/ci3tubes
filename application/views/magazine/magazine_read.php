@@ -8,14 +8,14 @@
   <br>
     <center>
       <h1><font color="blue"><?php echo ( $detail->judul_magazine ) ?></font>
-           
+           <br><br>
       <?php if( $detail->image ) : ?>
-              <img class="card-img-top" width="400px" src="<?php echo base_url() .'uploads/'. $detail->image ?>" alt="image">
+              <img class="card-img-top" width="400px" src="<?php echo base_url() .'img/'. $detail->image ?>" alt="image"><br><br>
               
               <!-- Jika tidak ada thumbnail, gunakan holder.js -->
               <?php ; else : ?>
               <img class="card-img-top" data-src="holder.js/100px190?theme=thumb&bg=eaeaea&fg=aaa&text=Thumbnail" alt="Card image cap">
-              <?php endif; ?><br>
+              <?php endif; ?><br><br>
               
               Tanggal :<br>
               <h3><?php echo ( $detail->tanggal ) ?> </h3>
@@ -24,8 +24,8 @@
               Sumber :<br>
                <h3><?php echo ( $detail->sumber ) ?></h3>
               <hr>
-              <a href='magazine/edit/<?php echo $key->id_magazine;?>' class='btn-btn-sm btn-info'>edit</a>
-              <a href='magazine/delete/<?php echo $key->id_magazine;?>' class='btn-btn-sm btn-danger'>Hapus</a>
+              <a href="<?php echo site_url( 'magazine/edit/'.$detail->id_magazine) ?>" class="button">Edit</a>
+                <a href="<?php echo site_url( 'magazine/delete/'.$detail->id_magazine) ?>" class="button">Delete</a>
               <hr>
     </center>
 

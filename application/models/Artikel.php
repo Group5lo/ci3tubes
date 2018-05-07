@@ -19,6 +19,12 @@ class Artikel extends CI_Model {
         return $query->row();
 	}
 
+      public function get_magazine_by_id($id)
+    {
+        $query = $this->db->get_where('magazine', array('id_magazine' => $id));
+        return $query->row();
+    }
+
     // public function get_gadget_by_slug($slug)
         //{
 
@@ -30,44 +36,19 @@ class Artikel extends CI_Model {
          //   return $query->row();
        // }
 
-	public function update()
-	{
-		if ( !empty($data) && !empty($id) ){
+
+    public function update_magazine($data, $id) 
+        {
+            if ( !empty($data) && !empty($id) ){
                 $update = $this->db->update( 'magazine', $data, array('id_magazine'=>$id) );
                 return $update ? true : false;
             } else {
                 return false;
             }
-	}
-
-
-    public function upload()
-    {
-        $config['upload_path'] = './img/';
-        $config['allowed_types'] = 'jpg|png';
-        $config['max_size']  = '2048';
-        $config['remove_space']  = TRUE;
-        
-        $this->load->library('upload', $config);
-        
-        if ($this->upload->do_upload('image')){
-            $return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
-            return $return;
-        } else {
-            $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
-            return $return;
         }
-    }
 
-	 public function create($upload)
+	 public function create_magazine($data)
         {
-             $data = array(
-           'judul_magazine'          => $this->input->post('judul_magazine'),
-           'tanggal'   => $this->input->post('tanggal'),
-            'content'          => $this->input->post('content'),
-            'image'          => $upload['file']['filename'],
-             'sumber'          => $this->input->post('sumber')
-       );
             return $this->db->insert('magazine', $data);
         }
 
