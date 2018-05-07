@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>assets/bigshot/menu/css/simple_menu.css">
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/bigshot/css/nivo-slider.css" type="text/css" media="screen">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/bigshot/boxes/css/style5.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/font-awesome/css/font-awesome.min.css">
 <!-- JS Files -->
 <script src="<?php echo base_url() ?>assets/bigshot/js/jquery.min.js"></script>
 <script src="<?php echo base_url() ?>assets/bigshot/js/jquery.eislideshow.js"></script>
@@ -49,6 +50,7 @@ jQuery.noConflict()(function ($) {
         <!-- sub menu -->
         <ol>
           <li><?php echo anchor('magazine/create', 'Add Magazine'); ?></li>
+          <li><?php echo anchor('category', 'Category'); ?></li>
         </ol>
       </li>
       <!-- end sub menu -->

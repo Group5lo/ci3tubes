@@ -62,4 +62,14 @@ class Artikel extends CI_Model {
             }
         }
 	
+    public function get_magazine_by_category($as_category_id)
+        {
+
+            $this->db->order_by('magazine.id_magazine', 'DESC');
+
+            $this->db->join('category', 'category.id_category = magazine.fk_id_category');
+            $query = $this->db->get_where('magazine', array('id_category' => $as_category_id));
+      
+            return $query->result();
+        }
 }
