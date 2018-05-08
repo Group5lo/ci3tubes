@@ -43,7 +43,7 @@ class Magazine extends CI_Controller {
 		$this->load->view("templates/v_footer");
 	}
 
-	public function create()
+		public function create()
 	{
 
 		$data['page_title'] = 'ADD Magazine';
@@ -52,9 +52,10 @@ class Magazine extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('artikel');
 		// Gunakan fungsi dari model untuk mengisi data dalam dropdown
-		
+		$data['category'] = $this->category_model->generate_category_dropdown();
 
 	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
+
 	    $this->form_validation->set_rules('judul_magazine', 'judul magazine', 'required|is_unique[magazine.judul_magazine]',
 			array(
 				'required' 		=> 'Isi %s donk, males amat.',
@@ -117,7 +118,9 @@ class Magazine extends CI_Controller {
 	    	// Misal judul: "Hello World", kita format menjadi "hello-world"
 	    	// Nantinya, URL blog kita menjadi mudah dibaca 
 	    	// http://localhost/ci3-course/blog/hello-world
+	    	$slug = url_title($this->input->post('judul_magazine'), 'dash', TRUE);
 	    	$post_data = array(
+	    		'fk_id_category' => $this->input->post('id_category'),
 	    	    'judul_magazine' => $this->input->post('judul_magazine'),
 	    	    'tanggal' => $this->input->post('tanggal'),
 	    	    'content' => $this->input->post('content'),
@@ -146,32 +149,23 @@ class Magazine extends CI_Controller {
 
 		public function edit($id = NULL)
 	{
-
 		$data['page_title'] = 'MAGAZINE EDIT';
-
 		// Get artikel dari model berdasarkan $id
 		$data['artikel'] = $this->artikel->get_magazine_by_id($id);
-		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman list brand
+		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman blog
 		if ( empty($id) || !$data['artikel'] ) redirect('magazine');
-
+		$data['category'] = $this->category_model->generate_category_dropdown();
+		// Kita simpan dulu nama file yang lama
 		$old_image = $data['artikel']->image;
 		// Kita butuh helper dan library berikut
 	    $this->load->helper('form');
 	    $this->load->library('form_validation');
-
 	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
-		$this->form_validation->set_rules('judul_magazine', 'Judul Magazine', 'required',
-			array('required' => 'Isi %s donk, males amat.'));
-	    	$this->form_validation->set_rules('tanggal', 'Tanggal', 'required',
-			array('required' => 'Isi %s donk, males amat.'));
-				$this->form_validation->set_rules('content', 'content', 'required',
-			array('required' => 'Isi %s donk, males amat.'));
-				$this->form_validation->set_rules('image', 'image', 'required',
-			array('required' => 'Isi %s donk, males amat.'));
-					$this->form_validation->set_rules('sumber', 'sumber', 'required',
-			array('required' => 'Isi %s donk, males amat.'));
-
-
+		$this->form_validation->set_rules('judul_magazine', 'judul_magazine', 'required',
+			array(
+				'required' 		=> 'Isi %s donk, males amat.'
+			));
+	    // Cek apakah input valid atau tidak
 	    if ($this->form_validation->run() === FALSE)
 	    {
 	        $this->load->view('templates/v_header');
@@ -179,7 +173,7 @@ class Magazine extends CI_Controller {
 	        $this->load->view('templates/v_footer');
 	    } else {
     		// Apakah user upload gambar?
-    		if ( isset($_FILES['image']) && $_FILES['image']['size'] > 0 )
+    		if ( isset($_FILES['thumbnail']) && $_FILES['thumbnail']['size'] > 0 )
     		{
     			// Konfigurasi folder upload & file yang diijinkan
     			// Jangan lupa buat folder uploads di dalam ci3-course
@@ -191,7 +185,7 @@ class Magazine extends CI_Controller {
     	        // Load library upload
     	        $this->load->library('upload', $config);
     	        // Apakah file berhasil diupload?
-    	        if ( ! $this->upload->do_upload('image'))
+    	        if ( ! $this->upload->do_upload('thumbnail'))
     	        {
     	        	$data['upload_error'] = $this->upload->display_errors();
     	        	$post_image = '';
@@ -217,13 +211,14 @@ class Magazine extends CI_Controller {
     			// User tidak upload gambar, jadi kita kosongkan field ini, atau jika sudah ada, gunakan image sebelumnya
     			$post_image = ( !empty($old_image) ) ? $old_image : '';
     		}
-
+    		$slug = url_title($this->input->post('judul_magazine'), 'dash', TRUE);
 	    	$post_data = array(
+	   			'fk_id_category' => $this->input->post('id_category'),
 	    	    'judul_magazine' => $this->input->post('judul_magazine'),
 	    	    'tanggal' => $this->input->post('tanggal'),
 	    	    'content' => $this->input->post('content'),
-	    	    'image' => $post_image,
 	    	    'sumber' => $this->input->post('sumber'),
+	    	    'image' => $post_image,
 	    	);
 	    	// Jika tidak ada error upload gambar, maka kita update datanya 
 	    	if( empty($data['upload_error']) ) {
@@ -234,7 +229,7 @@ class Magazine extends CI_Controller {
 		        $this->load->view('templates/v_footer'); 
 	    	}
 	    }
-	}
+}
 
 
 }

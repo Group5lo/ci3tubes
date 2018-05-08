@@ -55,19 +55,19 @@ class Category_model extends CI_Model
         }
     }
 
-    public function generate_brand_dropdown()
+      public function generate_category_dropdown()
     {
 
         // Mendapatkan data ID dan nama kategori saja
         $this->db->select ('
-            brand.brand_id,
-            brand.brand_name
+            category.id_category,
+            category.category_name
         ');
 
         // Urut abjad
-        $this->db->order_by('brand_name');
+        $this->db->order_by('category_name');
 
-        $result = $this->db->get('brand');
+        $result = $this->db->get('category');
         
         // bikin array
         // please select berikut ini merupakan tambahan saja agar saat pertama
@@ -78,7 +78,7 @@ class Category_model extends CI_Model
             
             foreach ($result->result_array() as $row) {
                 // Buat array berisi 'value' (id kategori) dan 'nama' (nama kategori)
-                $dropdown[$row['brand_id']] = $row['brand_name'];
+                $dropdown[$row['id_category']] = $row['category_name'];
             }
         }
 

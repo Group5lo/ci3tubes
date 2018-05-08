@@ -62,6 +62,24 @@ class Artikel extends CI_Model {
             }
         }
 	
+      public function get_magazine_by_slug($slug)
+        {
+
+             // Inner Join dengan table category
+            $this->db->select ( '
+                magazine.*, 
+                category.id_category as as_category_id, 
+                category.category_name,
+                category.category_description,
+            ' );
+            $this->db->join('category', 'category.id_category = category.fk_id_category');
+            
+            $query = $this->db->get_where('magazine', array('post_slug' => $slug));
+
+            // Karena datanya cuma 1, kita return cukup via row() saja
+            return $query->row();
+        }
+    
     public function get_magazine_by_category($as_category_id)
         {
 

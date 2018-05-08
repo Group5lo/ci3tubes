@@ -39,6 +39,11 @@
             <input type="text" class="form-control" name="sumber" value="<?php echo set_value('sumber') ?>" required>
             <div class="invalid-feedback">Isi sumber</div>
           </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <?php echo form_dropdown('id_category', $category, set_value('id_category'), 'class="form-control" required' ); ?>
+            <div class="invalid-feedback">Pilih dulu kategorinya gan</div>
+          </div>
           <button id="submitBtn" type="submit" class="btn btn-primary">Post Magazine</button>
         </form>
     
