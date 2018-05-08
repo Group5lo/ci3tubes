@@ -12,7 +12,7 @@
           <!-- Title -->
           <h1 class="mt-4"><?php echo ( $detail->judul_magazine ) ?>
                 <a href="<?php echo base_url(). 'magazine/edit/' . $detail->id_magazine ?>" class="button"><span class="fa fa-edit"></span></a>
-                <a href="<?php echo base_url(). 'magazine/hapus/' . $detail->id_magazine ?>" class="button" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="fa fa-trash"></span></a>
+                <a href="<?php echo base_url(). 'magazine/delete/' . $detail->id_magazine ?>" class="button" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="fa fa-trash"></span></a>
           </h1>
 
           <hr>
