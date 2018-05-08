@@ -33,8 +33,9 @@
               <p>Ini adalah gadget yang ada disini dan mangkanya ada lo hehehe bagus to.</p>
                   <div class="btn-group">
                     <!-- Untuk link detail -->
-                    <a href="<?php echo base_url(). 'gadget/read/' . $key->post_slug ?>" class="button">Baca</a>
-                    <a href="<?php echo base_url(). 'gadget/edit/' . $key->post_id ?>" class="button">Edit</a>
+                    <a href="<?php echo base_url(). 'gadget/read/'.$key->post_slug ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>
+                    <a href="<?php echo base_url(). 'gadget/edit/' . $key->post_id ?>" class="button"><span class="fa fa-edit"></span> Edit</a>
+                    <a href="<?php echo base_url(). 'category/hapus/' . $key->post_id ?>" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="button"><span class="fa fa-trash"></span> Hapus</a>
                 </div>
                 <hr>
             </div>

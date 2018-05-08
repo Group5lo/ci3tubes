@@ -18,11 +18,12 @@
               <td>
                 <a href="<?php echo base_url(). 'magazine/detail/' . $key->id_magazine ?>" style="color: black;">
                   <!-- src="img/<?php echo $key->image;?>" -->
-                  <img src="<?php echo base_url().'img/'?><?php echo $key->image; ?>" alt="Image" width="500" height="400">
+                  <img src="<?php echo base_url().'img/'?><?php echo $key->image; ?>" alt="Image" width="400" height="300">
                   <br>
                   <?php echo $key->judul_magazine ?> 
                 </a>
                 <br><br>
+                <a href="<?php echo base_url(). '/magazine/detail/'.$key->id_magazine ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>
                 <a href="<?php echo base_url(). 'magazine/edit/' . $key->id_magazine ?>" class="button" ><span class="fa fa-edit"></span> Edit</a>
                 <a href="<?php echo base_url(). 'magazine/delete/' . $key->id_magazine ?>" class="button" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="fa fa-trash"></span> Hapus</a>
               </td>

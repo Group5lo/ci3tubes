@@ -139,11 +139,40 @@ class Magazine extends CI_Controller {
 
 	
 
-		public function delete($id_magazine){
-		$this->load->model('artikel');
-		$this->artikel->delete($id_magazine);
-		redirect('magazine');
+	public function delete($id){
+		$data['page_title'] = 'HAPUS MAGAZINE';
+		// Get artikel dari model berdasarkan $id
+		$data['magazine'] = $this->artikel->get_magazine_by_id($id);
+		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman blog
+		if ( empty($id) || !$data['magazine'] ) show_404();
+		// Kita simpan dulu nama file yang lama
+		$old_image = $data['magazine']->image;
+    	// Hapus file image yang lama jika ada
+    	if( !empty($old_image) ) {
+    		if ( file_exists('./img/'.$old_image ) ){
+    		    unlink('./img/'.$old_image);
+    		} else {
+    		    echo 'File tidak ditemukan.';
+    		}
+    	}
+		// Hapus artikel sesuai id-nya
+        if( ! $this->artikel->delete($id) )
+        {
+        	// Jika gagal, tampilkan failnya
+	        $this->load->view('templates/v_header');
+	        $this->load->view('gadget/gadget_failed', $data);
+	        $this->load->view('templates/v_footer'); 
+	    } else {
+	    	// Ok, sudah terhapus
+	    	$this->load->view('templates/v_header');
+	        $this->load->view('gadget/gadget_success', $data);
+	        $this->load->view('templates/v_footer'); 
+	    }
 	}
+	// 	$this->load->model('artikel');
+	// 	$this->artikel->delete($id_magazine);
+	// 	redirect('magazine');
+	// }
 
 	
 
