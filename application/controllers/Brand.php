@@ -123,7 +123,7 @@ class Brand extends CI_Controller{
 	public function delete($id)
 	{
 
-		$data['page_title'] = 'Delete brand';
+		$data['page_title'] = 'HAPUS BRAND';
 
 		$this->brand_model->delete_brand($id);
 

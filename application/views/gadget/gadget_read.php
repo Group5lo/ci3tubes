@@ -28,9 +28,8 @@
               <h3><?php echo ( $gadget->post_backcam ) ?> MP</h3>
               Internal Memory :<br>
               <h3><?php echo ( $gadget->post_int ) ?> GB</h3>
-              <hr>
-              <a href="<?php echo site_url( 'gadget/edit/'.$gadget->post_id) ?>" class="button">Edit</a>
-              <a href="<?php echo site_url( 'gadget/delete/'.$gadget->post_id) ?>" class="button">Hapus ??</a>
+              Harga :<br>
+              <h3>Rp. 12,00</h3>
               <hr>
     </center>
 

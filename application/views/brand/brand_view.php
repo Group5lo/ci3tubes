@@ -7,7 +7,6 @@
   </div>
   </div>
   <div class="one">
-    <?php echo anchor('brand/create', 'Tambah Brand', array('class' => 'button')); ?>
   </div>
   <?php if( !empty($brand) ) : ?>
 
@@ -16,16 +15,13 @@
     ?>
             <div class="one-third last">
               <hr>
-              <div class="heading_bg">
                 <h2><?php echo ( $key->brand_name ) ?></h2>
-              </div>
+              
               Dipost tanggal <?php echo ($key->date_created) ?><br>
               <h4><?php echo ( $key->brand_description ) ?></h4><br>
-                  <div class="btn-group">
+                <div class="btn-group">
                     <!-- Untuk link detail -->
                 <a href="<?php echo base_url(). 'brand/gadget/'.$key->brand_id ?>" class="button"><span class="fa fa-info-circle"></span> Lihat</a>
-                <a href="<?php echo base_url(). 'brand/edit/' . $key->brand_id ?>" class="button" ><span class="fa fa-edit"></span> Edit</a>
-                <a href="<?php echo base_url(). 'brand/delete/' . $key->brand_id ?>" class="button" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="fa fa-trash"></span> Hapus</a>
                 </div>
                 <hr>
             </div>

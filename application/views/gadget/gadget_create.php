@@ -15,6 +15,11 @@
 					<?php echo (isset( $upload_error)) ? '<div class="alert alert-warning" role="alert">' .$upload_error. '</div>' : ''; ?>
 					<?php echo form_open_multipart( 'gadget/create', array('class' => 'needs-validation', 'novalidate' => '') ); ?>
 					<div class="form-group">
+						<label>Brand</label>
+						<?php echo form_dropdown('brand_id', $brand, set_value('brand_id'), 'class="form-control" required' ); ?>
+						<div class="invalid-feedback">Pilih dulu kategorinya gan</div>
+					</div>
+					<div class="form-group">
 						<label for="title">Tipe</label>
 						<input type="text" class="form-control" name="tipe" value="<?php echo set_value('tipe') ?>" required>
 						<div class="invalid-feedback">Isi tipe dulu ya</div>
@@ -48,11 +53,6 @@
 						<label for="title">Internal Memory</label>
 						<input type="number" class="form-control" name="int" value="<?php echo set_value('int') ?>" required>
 						<div class="invalid-feedback">Isi memory internalnya ya</div>
-					</div>
-					<div class="form-group">
-						<label>Brand</label>
-						<?php echo form_dropdown('brand_id', $brand, set_value('brand_id'), 'class="form-control" required' ); ?>
-						<div class="invalid-feedback">Pilih dulu kategorinya gan</div>
 					</div>
 					<div class="form-group">
 						<label for="thumbnail">Gambar thumbnail</label>

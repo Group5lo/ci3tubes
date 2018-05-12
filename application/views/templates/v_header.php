@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?><!doctype html>
 <head>
-<title>Gadget Compare</title>
+<title>Gadget Compare And Shop</title>
 <meta charset="utf-8">
 <!-- CSS Files -->
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url() ?>assets/bigshot/css/style.css">
@@ -8,8 +8,6 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>assets/bigshot/css/nivo-slider.css" type="text/css" media="screen">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/bigshot/boxes/css/style5.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/css/bootstrap.min.css'; ?>">
-<script type="text/javascript" src="<?php echo base_url().'assets/js/bootstrap.min.js'; ?>"></script>
 <!-- JS Files -->
 <script src="<?php echo base_url() ?>assets/bigshot/js/jquery.min.js"></script>
 <script src="<?php echo base_url() ?>assets/bigshot/js/jquery.eislideshow.js"></script>
@@ -51,7 +49,6 @@ jQuery.noConflict()(function ($) {
       <li><a href="<?php echo site_url() ?>magazine">Magazine</a>
         <!-- sub menu -->
         <ol>
-          <li><?php echo anchor('magazine/create', 'Add Magazine'); ?></li>
           <li><?php echo anchor('category', 'Category'); ?></li>
         </ol>
       </li>
@@ -59,15 +56,12 @@ jQuery.noConflict()(function ($) {
       <li><a href="<?php echo site_url() ?>gadget">Gadget</a>
         <!-- sub menu -->
         <ol>
-          <li><?php echo anchor('gadget/create', 'Add Gadget'); ?></li>
+          <li><?php echo anchor('brand', 'Brand'); ?></li>
         </ol>
       </li>
       <!-- end sub menu -->
-      <li><a href="<?php echo site_url() ?>brand">Brand</a>
+      <li><a href="<?php echo site_url() ?>brand">Cart</a>
         <!-- sub menu -->
-        <ol>
-          <li><?php echo anchor('brand/create', 'Add Brand'); ?></li>
-        </ol>
       </li>
       <li><a href="<?php echo site_url() ?>contact">Contact</a></li>
     </ol>

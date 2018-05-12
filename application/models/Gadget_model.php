@@ -8,7 +8,10 @@
             parent::__construct();
         }
 
-        public function get_all_gadget() {
+        public function get_all_gadget( $limit = FALSE, $offset = FALSE ) {
+            if ( $limit ) {
+                $this->db->limit($limit, $offset);
+            }
             // Query Manual
             // $query = $this->db->query('
             //      SELECT * FROM gadget_table
@@ -16,6 +19,7 @@
 
             // Memakai Query Builder
             // Urutkan berdasar tanggal
+
             $this->db->order_by('gadget_table.post_date', 'DESC');
 
             // Inner Join dengan table brand
@@ -25,6 +29,12 @@
 
             // Return dalam bentuk object
             return $query->result();
+        }
+
+        public function get_total() 
+        {
+            // Dapatkan jumlah total artikel
+            return $this->db->count_all("gadget_table");
         }
 
         public function get_gadget_by_id($id)
@@ -96,4 +106,33 @@
       
             return $query->result();
         }
+
+        public function generate_gadget_dropdown()
+    {
+
+        // Mendapatkan data ID dan nama kategori saja
+        $this->db->select ('
+            gadget_table.post_id,
+            gadget_table.post_name
+        ');
+
+        // Urut abjad
+        $this->db->order_by('post_name');
+
+        $result = $this->db->get('gadget_table');
+        
+        // bikin array
+        // please select berikut ini merupakan tambahan saja agar saat pertama
+        // diload akan ditampilkan text please select.
+        $dropdown[''] = 'Please Select';
+
+        if ($result->num_rows() > 0) {
+            
+            foreach ($result->result_array() as $row) {
+                $dropdown[$row['post_id']] = $row['post_name'];
+            }
+        }
+
+        return $dropdown;
+    }
     }

@@ -7,7 +7,6 @@
   </div>
   </div>
   <div class="one">
-    <?php echo anchor('Magazine/create', 'Tambah ', array('class' => 'button')); ?>
   </div>
   <div class="one">
     <div class="heading_bg">
@@ -24,8 +23,6 @@
                 </a>
                 <br><br>
                 <a href="<?php echo base_url(). '/magazine/detail/'.$key->id_magazine ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>
-                <a href="<?php echo base_url(). 'magazine/edit/' . $key->id_magazine ?>" class="button" ><span class="fa fa-edit"></span> Edit</a>
-                <a href="<?php echo base_url(). 'magazine/delete/' . $key->id_magazine ?>" class="button" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><span class="fa fa-trash"></span> Hapus</a>
               </td>
             </tr>
           </table>
