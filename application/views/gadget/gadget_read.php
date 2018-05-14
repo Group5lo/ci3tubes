@@ -29,7 +29,9 @@
               Internal Memory :<br>
               <h3><?php echo ( $gadget->post_int ) ?> GB</h3>
               Harga :<br>
-              <h3>Rp. 12,00</h3>
+              <h3>Rp. <?php echo ( $gadget->price ) ?></h3>
+              Stock :<br>
+              <h3>Rp. <?php echo ( $gadget->stock ) ?></h3>
               <hr>
     </center>
 

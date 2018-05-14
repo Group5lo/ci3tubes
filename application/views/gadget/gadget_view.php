@@ -33,6 +33,7 @@
                   <div class="btn-group">
                     <!-- Untuk link detail -->
                     <a href="<?php echo base_url(). 'gadget/read/'.$key->post_slug ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>
+                    <a href="<?php echo base_url(). 'transaksi/beli/'.$key->post_slug ?>" class="button"><span class="fa fa-dollar"></span> Beli</a>
                 </div>
                 <hr>
             </div>
