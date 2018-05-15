@@ -77,6 +77,7 @@ $route['category'] = 'category/index';
 $route['category/create'] = 'category/create';
 $route['category/(:num)'] = 'category/artikel/$1';
 $route['category/(:any)'] = 'category/index';
+$route['(:any)'] = 'admin/index';
 
 // $route['blog/category/(:num)'] = 'category/artikel/$1';
 

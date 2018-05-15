@@ -15,7 +15,7 @@ class Gadget extends CI_Controller {
 	{
 		$data['page_title'] = 'GADGET LIST'; 
 
-		$limit_per_page = 3;
+		$limit_per_page = 2;
 
 		// URI segment untuk mendeteksi "halaman ke berapa" dari URL
 		$start_index = ( $this->uri->segment(3) ) ? $this->uri->segment(3) : 0;

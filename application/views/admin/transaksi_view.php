@@ -103,4 +103,4 @@
         // #dt-basic adalah id html dari tabel yang diinisialisasi
         $('#dt-basic').DataTable();
     });
-  </script>
+    </script>

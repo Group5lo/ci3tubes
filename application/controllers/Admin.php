@@ -132,9 +132,7 @@ class Admin extends CI_Controller {
 		$data['transaksi'] = $this->transaksi_model->get_transaksi();
 		$data['ganti'] = $this->transaksi_model->get_kurang_stock($id);
 
-		$this->load->view("templates/v_admin_header");
-		$this->load->view('admin/transaksi_view',$data);
-		$this->load->view("templates/v_admin_footer");
+		redirect('admin/transaksi');
 	}
 
 	public function transaksi_delete($id)
