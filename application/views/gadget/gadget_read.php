@@ -31,7 +31,7 @@
               Harga :<br>
               <h3>Rp. <?php echo ( $gadget->price ) ?></h3>
               Stock :<br>
-              <h3>Rp. <?php echo ( $gadget->stock ) ?></h3>
+              <h3><?php echo ( $gadget->stock ) ?></h3>
               <hr>
     </center>
 

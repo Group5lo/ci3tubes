@@ -6,6 +6,11 @@
         function __construct()
         {
             parent::__construct();
+                    $this->load->helper('MY');
+        $this->load->model('gadget_model');
+        $this->load->model('brand_model');
+        $this->load->model('transaksi_model');
+        $this->load->library('session');
         }
 
         public function get_all_gadget( $limit = FALSE, $offset = FALSE ) {
@@ -32,7 +37,7 @@
         }
 
 
-        public function get_gadget_by_id($id)
+        public function get_transaksi_by_id($id)
         {
              // Inner Join dengan table brand
             $this->db->select ( '
@@ -42,6 +47,7 @@
                 brand.brand_description,
             ' );
             $this->db->join('brand', 'brand.brand_id = gadget_table.fk_brand_id');
+            $id = $this->session->userdata('post_id') ;
 
             $query = $this->db->get_where('gadget_table', array('gadget_table.post_id' => $id));
                         
@@ -64,5 +70,22 @@
 
             // Karena datanya cuma 1, kita return cukup via row() saja
             return $query->row();
+        }
+
+        public function insert_transaksi()
+        {
+            $data = array(
+                'nama_pembeli'          => $this->input->post('nama_pembeli'),
+                'alamat'          => $this->input->post('alamat'),
+                'no_hp'          => $this->input->post('no_hp'),
+                'email'          => $this->input->post('email'),
+                'nama_barang'          => $this->input->post('nama_barang'),
+                'jumlah'          => $this->input->post('jumlah'),
+                'harga_satuan'          => $this->input->post('harga_satuan'),
+                'total_bayar'          => $this->input->post('total_bayar'),
+                'status' => 'belum lunas'
+            );
+
+            return $this->db->insert('transaksi', $data);
         }
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2018 at 09:50 AM
+-- Generation Time: May 15, 2018 at 03:59 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -102,7 +102,7 @@ CREATE TABLE `gadget_table` (
 
 INSERT INTO `gadget_table` (`post_id`, `post_date`, `fk_brand_id`, `post_name`, `post_slug`, `post_keccpu`, `post_ram`, `post_battery`, `post_frontcam`, `post_backcam`, `post_int`, `post_thumbnail`, `post_status`, `date_created`, `stock`, `price`) VALUES
 (14, '2018-05-08 09:47:37', 3, 'Galaxy A1', 'galaxy-a1', '1.2', 3, 'Typical Capacity: 2630 mAh (Non-removable)', '12', '24', 256, '1.jpg', 1, '2018-05-08 09:47:37', 5, 5),
-(15, '2018-05-08 09:52:20', 1, 'A37', 'a37', '1.2', 2, 'Typical Capacity: 2630 mAh (Non-removable)', '8', '5', 2, 'oppo.PNG', 1, '2018-05-08 09:52:20', 0, 0);
+(15, '2018-05-08 09:52:20', 1, 'A37', 'a37', '1.2', 2, 'Typical Capacity: 2630 mAh (Non-removable)', '8', '5', 2, 'oppo.PNG', 1, '2018-05-08 09:52:20', 10, 2000);
 
 -- --------------------------------------------------------
 
@@ -158,11 +158,33 @@ INSERT INTO `stockprice` (`id_sh`, `fk_tipe`, `stock`, `price`) VALUES
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `data_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `fk_tipe_gadget` int(11) NOT NULL,
-  `hargasatuan` bigint(30) NOT NULL,
-  `satuan` int(11) NOT NULL,
-  `total_harga` bigint(30) NOT NULL
+  `nama_pembeli` varchar(200) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `no_hp` varchar(10) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `nama_barang` varchar(50) NOT NULL,
+  `jumlah` int(20) NOT NULL,
+  `harga_satuan` int(30) NOT NULL,
+  `total_bayar` int(30) NOT NULL,
+  `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `data_created`, `nama_pembeli`, `alamat`, `no_hp`, `email`, `nama_barang`, `jumlah`, `harga_satuan`, `total_bayar`, `status`) VALUES
+(4, '2018-05-15 01:44:06', 'adaw', 'wqejqwhej', '12121212', 'a@gmail.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(5, '2018-05-15 01:45:41', 'muchsin', 'blitar', '087', 'muchsinalkatiri36@yahoo.com', 'A37', 3, 2000, 6000, 'belum lunas'),
+(6, '2018-05-15 01:53:47', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(7, '2018-05-15 01:54:14', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(8, '2018-05-15 01:58:01', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(9, '2018-05-15 01:58:07', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(10, '2018-05-15 01:58:23', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(11, '2018-05-15 01:58:31', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(12, '2018-05-15 01:58:46', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(13, '2018-05-15 01:59:14', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas'),
+(14, '2018-05-15 01:59:24', 'anita', 'malang', '0111', 'muchsinalkatiri36@yahoo.com', 'Galaxy A1', 2, 5, 10, 'belum lunas');
 
 -- --------------------------------------------------------
 
@@ -265,7 +287,7 @@ ALTER TABLE `stockprice`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user`
