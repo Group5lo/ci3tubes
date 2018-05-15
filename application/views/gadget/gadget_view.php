@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
+
+        <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
 <div id="container">
   <div class="one">
   <div class="heading_bg">
@@ -43,8 +45,13 @@
     <p>Belum ada data.</p>
     <?php endif; ?>
 
+  <div style="clear:both; height: 40px"></div><center>
+  <?php 
+    // $links ini berasal dari fungsi pagination 
+    // Jika $links ada (data melebihi jumlah max per page), maka tampilkan
+    if (isset($links)) {
+      echo $links;
+    } 
+    ?>
 
-  <div style="clear:both; height: 40px"></div>
 </div>
-
-<script src="<?php echo base_url() ?>assets/js/holder.min.js"></script>

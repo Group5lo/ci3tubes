@@ -4,7 +4,7 @@
   <div class="one">
     <div class="heading_bg">
       <h2><strong><?php	echo $page_title ?></strong></h2><br>
-      <h3>Barang anda akan segera di proses, terimakasih telah melakukan pembelian</h3>
+      <h3>Barang anda akan segera di proses, kamu akan mengirimkan lewat email jika barang anda sudah terkirim terimakasih telah melakukan pembelian</h3>
     </div>
   </div>
   <div class="one-half"><br>

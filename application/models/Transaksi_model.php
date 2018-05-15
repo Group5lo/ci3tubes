@@ -6,11 +6,19 @@
         function __construct()
         {
             parent::__construct();
-                    $this->load->helper('MY');
-        $this->load->model('gadget_model');
-        $this->load->model('brand_model');
-        $this->load->model('transaksi_model');
-        $this->load->library('session');
+                $this->load->helper('MY');
+                $this->load->model('gadget_model');
+                $this->load->model('brand_model');
+                $this->load->model('transaksi_model');
+                $this->load->library('session');
+        }
+
+        public function get_transaksi()
+        {
+
+            $query = $this->db->get('transaksi');
+                        
+            return $query->result();
         }
 
         public function get_all_gadget( $limit = FALSE, $offset = FALSE ) {
@@ -75,17 +83,40 @@
         public function insert_transaksi()
         {
             $data = array(
-                'nama_pembeli'          => $this->input->post('nama_pembeli'),
+                'nama_pembeli'    => $this->input->post('nama_pembeli'),
                 'alamat'          => $this->input->post('alamat'),
-                'no_hp'          => $this->input->post('no_hp'),
-                'email'          => $this->input->post('email'),
-                'nama_barang'          => $this->input->post('nama_barang'),
+                'no_hp'           => $this->input->post('no_hp'),
+                'email'           => $this->input->post('email'),
+                'nama_barang'     => $this->input->post('nama_barang'),
                 'jumlah'          => $this->input->post('jumlah'),
-                'harga_satuan'          => $this->input->post('harga_satuan'),
-                'total_bayar'          => $this->input->post('total_bayar'),
-                'status' => 'belum lunas'
+                'harga_satuan'    => $this->input->post('harga_satuan'),
+                'total_bayar'     => $this->input->post('total_bayar'),
+                'status' => 'baru'
             );
 
             return $this->db->insert('transaksi', $data);
+        }
+
+        public function get_kurang_stock($id){
+            $data = array(
+                'status' => 'lunas'
+            );
+
+            if ( !empty($id) ){
+                $update = $this->db->update( 'transaksi', $data, array('id_transaksi'=>$id) );
+                return $update ? true : false;
+            } else {
+                return false;
+            }
+        }
+
+        public function delete_transaksi($id)
+        {
+            if ( !empty($id) ){
+                $delete = $this->db->delete('transaksi', array('id_transaksi'=>$id) );
+                return $delete ? true : false;
+            } else {
+                return false;
+            }
         }
     }

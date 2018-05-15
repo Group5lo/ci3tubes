@@ -55,6 +55,16 @@
 						<div class="invalid-feedback">Isi memory internalnya ya</div>
 					</div>
 					<div class="form-group">
+						<label for="title">Stock</label>
+						<input type="number" class="form-control" name="stock" value="<?php echo set_value('stock') ?>" required>
+						<div class="invalid-feedback">Isi Stock dulu ya</div>
+					</div>
+					<div class="form-group">
+						<label for="title">Harga</label>
+						<input type="number" class="form-control" name="price" value="<?php echo set_value('price') ?>" required>
+						<div class="invalid-feedback">Isi Harga dulu ya</div>
+					</div>
+					<div class="form-group">
 						<label for="thumbnail">Gambar thumbnail</label>
 						<input type="file" class="form-control-file" name="thumbnail">
 					</div>

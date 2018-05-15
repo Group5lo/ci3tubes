@@ -14,9 +14,32 @@ class Gadget extends CI_Controller {
 	public function index()
 	{
 		$data['page_title'] = 'GADGET LIST'; 
+
+		$limit_per_page = 3;
+
+		// URI segment untuk mendeteksi "halaman ke berapa" dari URL
+		$start_index = ( $this->uri->segment(3) ) ? $this->uri->segment(3) : 0;
+
+		// Dapatkan jumlah data 
+		$total_records = $this->gadget_model->get_total();
+		
+		if ($total_records > 0) {
+			// Dapatkan data pada halaman yg dituju
+			$data["all_gadget"] = $this->gadget_model->get_all_gadget($limit_per_page, $start_index);
+			
+			// Konfigurasi pagination
+			$config['base_url'] = base_url() . 'gadget/index';
+			$config['total_rows'] = $total_records;
+			$config['per_page'] = $limit_per_page;
+			$config["uri_segment"] = 3;
+			
+			$this->pagination->initialize($config);
+				
+			// Buat link pagination
+			$data["links"] = $this->pagination->create_links();
+		}
 		
 		// Dapatkan data dari model Blog
-		$data['all_gadget'] = $this->gadget_model->get_all_gadget();
 		$this->load->view("templates/v_header");
 		$this->load->view('gadget/gadget_view',$data);
 		$this->load->view("templates/v_footer");
@@ -108,6 +131,8 @@ class Gadget extends CI_Controller {
 	    	    'post_frontcam' => $this->input->post('frontcam'),
 	    	    'post_backcam' => $this->input->post('backcam'),
 	    	    'post_int' => $this->input->post('int'),
+	    	    'stock' => $this->input->post('stock'),
+	    	    'price' => $this->input->post('price'),
 	    	    'post_thumbnail' => $post_image,
 	    	   	'date_created' => date("Y-m-d H:i:s"),
 	    	);
@@ -196,6 +221,8 @@ class Gadget extends CI_Controller {
 	    	    'post_frontcam' => $this->input->post('frontcam'),
 	    	    'post_backcam' => $this->input->post('backcam'),
 	    	    'post_int' => $this->input->post('int'),
+	    	    'stock' => $this->input->post('stock'),
+	    	    'price' => $this->input->post('price'),
 	    	    'post_thumbnail' => $post_image,
 	    	);
 	    	// Jika tidak ada error upload gambar, maka kita update datanya 

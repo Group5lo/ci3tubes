@@ -24,7 +24,8 @@
                   <th>Tanggal Buat</th>
                   <th>Brand</th>
                   <th>Tipe</th>
-                  <th>Status</th>
+                  <th>Stock</th>
+                  <th>Harga</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -34,7 +35,8 @@
                   <th>Tanggal Buat</th>
                   <th>Brand</th>
                   <th>Tipe</th>
-                  <th>Status</th>
+                  <th>Stock</th>
+                  <th>Harga</th>
                   <th>Action</th>
                 </tr>
               </tfoot>
@@ -49,7 +51,8 @@
                   <td><?php echo $key->post_date ?> ( <?php echo time_ago($key->post_date)?>)</td>
                   <td><?php echo $key->brand_name ?></td>
                   <td><?php echo word_limiter($key->post_name, 10) ?></td>
-                  <td><?php echo $key->post_status ?></td>
+                  <td><?php echo $key->stock ?></td>
+                  <td><?php echo $key->price ?></td>
                   <td>
                     <div class="btn-group">
                     <!-- Untuk link detail -->

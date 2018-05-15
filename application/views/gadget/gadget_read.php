@@ -33,6 +33,11 @@
               Stock :<br>
               <h3><?php echo ( $gadget->stock ) ?></h3>
               <hr>
+              <div class="btn-group">
+                    <!-- Untuk link detail -->
+                    <a href="<?php echo base_url(). 'transaksi/beli/'.$gadget->post_slug ?>" class="button"><span class="fa fa-dollar"></span> Beli</a>
+                </div>
+              <hr>
     </center>
 
   </div>

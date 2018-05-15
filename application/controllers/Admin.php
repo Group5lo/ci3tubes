@@ -13,6 +13,7 @@ class Admin extends CI_Controller {
 		$this->load->model('gadget_model');
 		$this->load->model('brand_model');
 		$this->load->model('user_model');
+		$this->load->model('transaksi_model');
 		$this->load->model('stockprice_model');
 	}
 
@@ -109,5 +110,36 @@ class Admin extends CI_Controller {
 		$this->load->view("templates/v_admin_header");
 		$this->load->view('admin/magazine_view',$data);
 		$this->load->view("templates/v_admin_footer");
+	}
+
+	public function transaksi(){
+		$data['page_title'] = 'Transaksi'; 
+		
+		// Dapatkan data dari model Blog
+		$this->load->model('transaksi_model');
+		$data['transaksi'] = $this->transaksi_model->get_transaksi();
+
+		$this->load->view("templates/v_admin_header");
+		$this->load->view('admin/transaksi_view',$data);
+		$this->load->view("templates/v_admin_footer");
+	}
+
+	public function transaksi_kurang_stock($id){
+		$data['page_title'] = 'Transaksi'; 
+		
+		// Dapatkan data dari model Blog
+		$this->load->model('transaksi_model');
+		$data['transaksi'] = $this->transaksi_model->get_transaksi();
+		$data['ganti'] = $this->transaksi_model->get_kurang_stock($id);
+
+		$this->load->view("templates/v_admin_header");
+		$this->load->view('admin/transaksi_view',$data);
+		$this->load->view("templates/v_admin_footer");
+	}
+
+	public function transaksi_delete($id)
+	{
+		$this->transaksi_model->delete_transaksi($id);
+		redirect('admin/transaksi');
 	}
 }

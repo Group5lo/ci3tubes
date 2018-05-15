@@ -55,6 +55,16 @@
 						<div class="invalid-feedback">Isi memory internalnya ya</div>
 					</div>
 					<div class="form-group">
+						<label for="title">Stock</label>
+						<input type="number" class="form-control" name="stock" value="<?php echo set_value('stock', $gadget->stock) ?>" required>
+						<div class="invalid-feedback">Isi Stock dulu ya</div>
+					</div>
+					<div class="form-group">
+						<label for="title">Harga</label>
+						<input type="number" class="form-control" name="price" value="<?php echo set_value('price', $gadget->price) ?>" required>
+						<div class="invalid-feedback">Isi Harga dulu ya</div>
+					</div>
+					<div class="form-group">
 						<?php if( $gadget->post_thumbnail ) : ?>
 						<img class="card-img-top" src="<?php echo base_url() .'uploads/'. $gadget->post_thumbnail ?>" alt="Card image cap" width=300>
 						<?php endif; ?>

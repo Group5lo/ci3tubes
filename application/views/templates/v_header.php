@@ -59,9 +59,6 @@ jQuery.noConflict()(function ($) {
           <li><?php echo anchor('brand', 'Brand'); ?></li>
         </ol>
       </li>
-      <!-- end sub menu -->
-      <li><a href="<?php echo site_url() ?>brand">Cart</a>
-        <!-- sub menu -->
       </li>
       <li><a href="<?php echo site_url() ?>contact">Contact</a></li>
     </ol>
