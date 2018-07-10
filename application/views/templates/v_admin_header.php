@@ -33,7 +33,7 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Data</span>

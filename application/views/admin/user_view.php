@@ -21,9 +21,11 @@
               <thead>
                 <tr>
                   <th>id</th>
+                  <th>Name</th>
                   <th>Username</th>
                   <th>Password</th>
                   <th>Email</th>
+                  <th>Code Pos</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -31,9 +33,11 @@
               <tfoot>
                 <tr>
                   <th>id</th>
+                  <th>Name</th>
                   <th>Username</th>
                   <th>Password</th>
                   <th>Email</th>
+                  <th>Code Pos</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -45,17 +49,17 @@
                 foreach ($all_user as $key) :
               ?>
                 <tr>
-                  <td><?php echo $key->post_id ?></td>
-                  <td><?php echo $key->post_date ?> ( <?php echo time_ago($key->post_date)?>)</td>
-                  <td><?php echo $key->brand_name ?></td>
-                  <td><?php echo word_limiter($key->post_name, 10) ?></td>
-                  <td><?php echo $key->post_status ?></td>
+                  <td><?php echo $key->user_id ?></td>
+                  <td><?php echo $key->nama ?> </td>
+                  <td><?php echo $key->username ?></td>
+                  <td><?php echo $key->password ?></td>
+                  <td><?php echo $key->email ?></td>
+                  <td><?php echo $key->kodepos ?></td>
+                  <td><?php echo $key->fk_level_id ?></td>
                   <td>
                     <div class="btn-group">
-                    <!-- Untuk link detail -->
-                    <a href="<?php echo base_url(). 'user/read/'.$key->post_slug ?>" class="btn btn-primary"><span class="fa fa-info-circle"></span> Baca</a>
-                    <a href="<?php echo base_url(). 'user/edit/' . $key->post_id ?>" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
-                    <a href="<?php echo base_url(). 'user/delete/' . $key->post_id ?>" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger"><span class="fa fa-trash"></span> Hapus</a>
+                    <a href="<?php echo base_url(). 'user/edit/' . $key->user_id ?>" class="btn btn-primary"><span class="fa fa-edit"></span> Edit</a>
+                    <a href="<?php echo base_url(). 'user/delete/' . $key->user_id ?>" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger"><span class="fa fa-trash"></span> Hapus</a>
                 </div>
                   </td>
                 </tr>
