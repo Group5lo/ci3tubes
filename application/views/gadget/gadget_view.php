@@ -34,8 +34,16 @@
               <p>Ini adalah gadget yang ada disini dan mangkanya ada lo hehehe bagus to.</p>
                   <div class="btn-group">
                     <!-- Untuk link detail -->
+
+                    <?php if(!$this->session->userdata('logged_in')) : ?>
                     <a href="<?php echo base_url(). 'gadget/read/'.$key->post_slug ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>
+                    <?php endif; ?>
+
+                    <?php if($this->session->userdata('logged_in')) : ?>
+                    <a href="<?php echo base_url(). 'gadget/read/'.$key->post_slug ?>" class="button"><span class="fa fa-info-circle"></span> Baca</a>&nbsp&nbsp&nbsp
                     <a href="<?php echo base_url(). 'transaksi/beli/'.$key->post_slug ?>" class="button"><span class="fa fa-dollar"></span> Beli</a>
+                    <?php endif; ?>
+
                 </div>
                 <hr>
             </div>

@@ -116,12 +116,12 @@ class User extends CI_Controller{
         if ($userData['fk_level_id'] === '1'){
             redirect('admin');
         } else if ($userData['fk_level_id'] === '2'){
-            $this->load->view('templates/v_header_member1');
-            $this->load->view('pages/dashboard', $data);
+            $this->load->view('templates/v_header');
+            $this->load->view('pages/v_home', $data);
             $this->load->view('templates/v_footer');
         } else if ($userData['fk_level_id'] === '3') {
-            $this->load->view('templates/v_header_member2');
-            $this->load->view('pages/dashboard', $data);
+            $this->load->view('templates/v_header');
+            $this->load->view('pages/v_home', $data);
             $this->load->view('templates/v_footer');
         }
 	}
