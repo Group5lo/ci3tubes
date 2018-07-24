@@ -27,7 +27,7 @@ class User_model extends CI_Model
     // Dapatkan kategori berdasar ID
     public function get_user_by_id($id)
     {
-        $query = $this->db->get_where('user', array('user_id' => $id));
+        $query = $this->db->get_where('users', array('user_id' => $id));
         return $query->row();
     }
 
@@ -114,5 +114,17 @@ class User_model extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function get_users_by_id($id)
+    {
+         // Inner Join dengan table brand
+        $this->db->select ( 'users' );
+        // $this->db->join('brand', 'brand.brand_id = gadget_table.fk_brand_id');
+        $id = $this->session->userdata('user_id') ;
+
+        $query = $this->db->get_where('users', array('users.user_id' => $id));
+                    
+        return $query->row();
     }
 }

@@ -17,6 +17,8 @@
         <tr>
           <td rowspan="12"><img class="card-img-top" style="height:300px; width: 200px;  " src="<?php echo base_url() .'uploads/'. $gadget->post_thumbnail ?>" alt="Card image cap"></td>
         </tr>
+
+        <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id') ?>" />
         <tr>
           <td>Harga</td>
           <td>Rp. <?php echo ( $gadget->price ) ?></td>
@@ -27,7 +29,12 @@
         </tr>
         <tr>
           <td>Nama</td>
-          <td><input type="text"    class="form-control" name="nama_pembeli" required="required" placeholder="Nama Lengkap" ></td>
+          <td><?php echo ( $user->nama ) ?></td>
+          <input type="hidden" name="nama_pembeli" value="<?php echo $user->nama ?>" >
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><?php echo ( $user->email ) ?></td>
         </tr>
         <tr>
         <tr>
@@ -39,14 +46,10 @@
           <td><input type="number"    class="form-control" name="nohp" required="required" placeholder="No. Tlp" ></td>
         </tr>
         <tr>
-          <td>Email</td>
-          <td><input type="Email"  class="form-control" name="email" required="required" placeholder="Email" ></td>
-        </tr>
-        <tr>
         <tr>
         <tr>
           <td>Jumlah</td>
-          <td><input type="number"  class="form-control" name="jumlah" required="required" max="<?php echo ( $gadget->price ) ?>" min="1" placeholder="jumlah" ></td>
+          <td><input type="number"  class="form-control" name="jumlah" required="required" max="<?php echo ( $gadget->stock ) ?>" min="1" placeholder="jumlah" ></td>
         </tr>
         <tr>
           <td>Konfirmasi</td>

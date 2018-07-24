@@ -15,11 +15,12 @@ class Transaksi extends CI_Controller {
 		$this->load->library('session');
 	}
 
-	public function beli($slug='')
+	public function beli($slug='', $id='')
 	{
 		$data['page_title'] = 'Pembelian';
 
 		$data['gadget'] = $this->transaksi_model->get_transaksi_by_slug($slug); 
+		$data['user'] = $this->transaksi_model->get_users_by_id($id); 
 
 		// $this->session->set_userdata('stock', echo ($gadget->stock) );
 
@@ -27,7 +28,7 @@ class Transaksi extends CI_Controller {
 		$this->load->view('transaksi/v_transaksi', $data);
 		$this->load->view("templates/v_footer");
 
-	}
+	} 
 
 	public function konfirmasi($id='')
 	{
@@ -55,6 +56,9 @@ class Transaksi extends CI_Controller {
 
 		// Kita butuh helper dan library berikut
 		$this->load->helper('form');
+		
+		$this->session->set_userdata('alamat', $this->input->post('alamat'));
+		$this->session->set_userdata('nohp', $this->input->post('nohp'));
 
 		// Form validasi untuk Nama Kategori
 
