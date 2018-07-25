@@ -5,7 +5,7 @@
 <div id="container">
   <div class="one">
   <div class="heading_bg">
-    <h2><?php echo $page_title ?></h2>
+    <h1><?php echo $page_title ?></h1>
   </div>
   <br>
     <center>

@@ -18,11 +18,6 @@ class User_model extends CI_Model
         return $query->result();
     }
 
-    public function create_user()
-    {
-
-        return $this->db->insert('users', $data);
-    }
 
     // Dapatkan kategori berdasar ID
     public function get_user_by_id($id)
@@ -53,6 +48,12 @@ class User_model extends CI_Model
 
     //---------------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------------
+
+    public function registeradmin($data){
+
+        // Insert user
+        return $this->db->insert('users', $data);
+    }
 
     public function register($enc_password){
         // Array data user 

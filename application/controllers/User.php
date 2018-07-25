@@ -100,6 +100,13 @@ class User extends CI_Controller{
 		redirect('user/login');
 	}
 
+
+	public function get_user(){
+		$this->load->model('transaksi_model');
+		$data['user'] = $this->transaksi_model->get_users_by_id($id); 
+		$this->load->view("templates/v_header",$data);
+	}
+
 	public function get_userdata(){
         $userData = $this->session->userdata();
         return $userData;
@@ -128,88 +135,6 @@ class User extends CI_Controller{
         }
 	}
 
-	public function member1_about(){
-		$this->load->view('templates/v_header_member1');
-		$this->load->view('page/myprofil');
-		$this->load->view('templates/v_footer');
-	}
-
-	public function member2_about(){
-		$this->load->view('templates/v_header_member2');
-		$this->load->view('page/myprofil');
-		$this->load->view('templates/v_footer');
-	}
-
-	public function member1_blog(){
-		$data['page_title'] = 'IKI ARTIKEL'; 
-		
-		// Dapatkan data dari model Blog dengan pagination
-		// Jumlah artikel per halaman
-		$limit_per_page = 4;
-
-		// URI segment untuk mendeteksi "halaman ke berapa" dari URL
-		$start_index = ( $this->uri->segment(3) ) ? $this->uri->segment(3) : 0;
-
-		// Dapatkan jumlah data 
-		$total_records = $this->blog_model->get_total();
-		
-		if ($total_records > 0) {
-			// Dapatkan data pada halaman yg dituju
-			$data["all_artikel"] = $this->blog_model->get_all_artikel($limit_per_page, $start_index);
-			
-			// Konfigurasi pagination
-			$config['base_url'] = base_url() . 'blog/index';
-			$config['total_rows'] = $total_records;
-			$config['per_page'] = $limit_per_page;
-			$config["uri_segment"] = 3;
-			
-			$this->pagination->initialize($config);
-				
-			// Buat link pagination
-			$data["links"] = $this->pagination->create_links();
-		}
-
-		$this->load->view("templates/v_header_member1");
-		// Passing data ke view
-		$this->load->view('blogs/blog_view', $data);
-		$this->load->view("templates/v_footer");
-	}
-
-	public function member2_blog(){
-		$data['page_title'] = 'IKI ARTIKEL'; 
-		
-		// Dapatkan data dari model Blog dengan pagination
-		// Jumlah artikel per halaman
-		$limit_per_page = 4;
-
-		// URI segment untuk mendeteksi "halaman ke berapa" dari URL
-		$start_index = ( $this->uri->segment(3) ) ? $this->uri->segment(3) : 0;
-
-		// Dapatkan jumlah data 
-		$total_records = $this->blog_model->get_total();
-		
-		if ($total_records > 0) {
-			// Dapatkan data pada halaman yg dituju
-			$data["all_artikel"] = $this->blog_model->get_all_artikel($limit_per_page, $start_index);
-			
-			// Konfigurasi pagination
-			$config['base_url'] = base_url() . 'blog/index';
-			$config['total_rows'] = $total_records;
-			$config['per_page'] = $limit_per_page;
-			$config["uri_segment"] = 3;
-			
-			$this->pagination->initialize($config);
-				
-			// Buat link pagination
-			$data["links"] = $this->pagination->create_links();
-		}
-
-		$this->load->view("templates/v_header_member2");
-		// Passing data ke view
-		$this->load->view('blogs/blog_view_member2', $data);
-		$this->load->view("templates/v_footer");
-	}
-
 	public function detail($id=''){
 
 		$data['page_title'] = 'Profil User';
@@ -222,18 +147,41 @@ class User extends CI_Controller{
 		$this->load->view('templates/v_footer');
 	}
 
-	public function ganti_gambar(){
+	public function ganti_gambar($id=NULL){
 
-		$data['page_title'] = 'Gambar Profil';
-		$this->load->helper('form');
-
-			if ( isset($_FILES['thumbnail']) && $_FILES['thumbnail']['size'] > 0 )
+		$data['page_title'] = 'Change Your Picture';
+		// Get artikel dari model berdasarkan $id
+		$data['user'] = $this->user_model->get_user_by_id($id);
+		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman blog
+		if ( empty($id) || !$data['user'] ) redirect('user');
+		// Kita simpan dulu nama file yang lama
+		$old_image = $data['user']->avatar;
+		// Kita butuh helper dan library berikut
+	    $this->load->helper('form');
+	    $this->load->library('form_validation');
+	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
+		$this->form_validation->set_rules('password', 'password', 'required',
+			array(
+				'required' 		=> 'Isi %s anda lagi.'
+			));
+		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]');
+	    // Cek apakah input valid atau tidak
+	    if ($this->form_validation->run() === FALSE)
+	    {
+			$this->load->view('templates/v_header');
+			$this->load->view('pages/ganti_gambar', $data);
+			$this->load->view('templates/v_footer');
+	    } else {
+    		// Apakah user upload gambar?
+    		if ( isset($_FILES['thumbnail']) && $_FILES['thumbnail']['size'] > 0 )
     		{
     			// Konfigurasi folder upload & file yang diijinkan
     			// Jangan lupa buat folder uploads di dalam ci3-course
-    			$config['upload_path']          = './uploads/user/';
+    			$config['upload_path']          = './uploads/';
     	        $config['allowed_types']        = 'gif|jpg|png';
     	        $config['max_size']             = 2048;
+    	        $config['max_width']            = 1000;
+    	        $config['max_height']           = 2000;
     	        // Load library upload
     	        $this->load->library('upload', $config);
     	        // Apakah file berhasil diupload?
@@ -242,48 +190,122 @@ class User extends CI_Controller{
     	        	$data['upload_error'] = $this->upload->display_errors();
     	        	$post_image = '';
     	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
-    	            $this->load->view('templates/v_header');
-    	            $this->load->view('pages/ganti_gambar', $data);
-    	            $this->load->view('templates/v_footer'); 
+					$this->load->view('templates/v_admin_header');
+					$this->load->view('pages/ganti_gambar', $data);
+					$this->load->view('templates/v_admin_footer'); 
     	        } else {
+    	        	// Hapus file image yang lama jika ada
+    	        	if( !empty($old_image) ) {
+    	        		if ( file_exists( './uploads/'.$old_image ) ){
+    	        		    unlink( './uploads/'.$old_image );
+    	        		} else {
+    	        		    echo 'File tidak ditemukan.';
+    	        		}
+    	        	}
     	        	// Simpan nama file-nya jika berhasil diupload
     	            $img_data = $this->upload->data();
     	            $post_image = $img_data['file_name'];
     	        	
     	        }
     		} else {
-    			// User tidak upload gambar, jadi kita kosongkan field ini
-    			$post_image = '';
+    			// User tidak upload gambar, jadi kita kosongkan field ini, atau jika sudah ada, gunakan image sebelumnya
+    			$post_image = ( !empty($old_image) ) ? $old_image : '';
     		}
-
-		$this->load->view('templates/v_header');
-		$this->load->view('pages/ganti_gambar', $data);
-		$this->load->view('templates/v_footer');
+	    	$post_data = array(
+	            'avatar' => $post_image,
+	    	);
+	    	// Jika tidak ada error upload gambar, maka kita update datanya 
+	    	if( empty($data['upload_error']) ) {
+	    		// Update artikel sesuai post_data dan id-nya
+		        $this->user_model->update_user($post_data, $id);
+		        redirect('home');
+	    	}
+	    }
 	}
 
-	public function edit_user($id=''){
-
+	public function user_edit($id = NULL)
+	{
 		$data['page_title'] = 'Edit User';
-		$data['user'] = $this->user_model->get_users_by_id($id); 
-
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		// Get artikel dari model berdasarkan $id
+		$data['user'] = $this->user_model->get_user_by_id($id);
+		// Jika id kosong atau tidak ada id yg dimaksud, lempar user ke halaman blog
+		if ( empty($id) || !$data['user'] ) redirect('user');
+		// Kita simpan dulu nama file yang lama
+		$old_image = $data['user']->avatar;
+		// Kita butuh helper dan library berikut
+	    $this->load->helper('form');
+	    $this->load->library('form_validation');
+	    // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
+		$this->form_validation->set_rules('password', 'password', 'required',
+			array(
+				'required' 		=> 'Isi %s anda lagi.'
+			));
 		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]');
-
-		if($this->form_validation->run() === FALSE){
+	    // Cek apakah input valid atau tidak
+	    if ($this->form_validation->run() === FALSE)
+	    {
 			$this->load->view('templates/v_header');
 			$this->load->view('pages/edit_user', $data);
 			$this->load->view('templates/v_footer');
-		} else {
-			// Encrypt password
-			$enc_password = md5($this->input->post('password'));
-
-			$this->user_model->update($enc_password);
-
-			// Set message
-			$this->session->set_flashdata('user_registered', 'Anda berhasil memperbarui data.');
-
-			redirect('home');
-		}
+	    } else {
+    		// Apakah user upload gambar?
+    		if ( isset($_FILES['thumbnail']) && $_FILES['thumbnail']['size'] > 0 )
+    		{
+    			// Konfigurasi folder upload & file yang diijinkan
+    			// Jangan lupa buat folder uploads di dalam ci3-course
+    			$config['upload_path']          = './uploads/';
+    	        $config['allowed_types']        = 'gif|jpg|png';
+    	        $config['max_size']             = 2048;
+    	        $config['max_width']            = 1000;
+    	        $config['max_height']           = 2000;
+    	        // Load library upload
+    	        $this->load->library('upload', $config);
+    	        // Apakah file berhasil diupload?
+    	        if ( ! $this->upload->do_upload('thumbnail'))
+    	        {
+    	        	$data['upload_error'] = $this->upload->display_errors();
+    	        	$post_image = '';
+    	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
+					$this->load->view('templates/v_admin_header');
+					$this->load->view('pages/edit_user',$data);
+					$this->load->view('templates/v_admin_footer'); 
+    	        } else {
+    	        	// Hapus file image yang lama jika ada
+    	        	if( !empty($old_image) ) {
+    	        		if ( file_exists( './uploads/'.$old_image ) ){
+    	        		    unlink( './uploads/'.$old_image );
+    	        		} else {
+    	        		    echo 'File tidak ditemukan.';
+    	        		}
+    	        	}
+    	        	// Simpan nama file-nya jika berhasil diupload
+    	            $img_data = $this->upload->data();
+    	            $post_image = $img_data['file_name'];
+    	        	
+    	        }
+    		} else {
+    			// User tidak upload gambar, jadi kita kosongkan field ini, atau jika sudah ada, gunakan image sebelumnya
+    			$post_image = ( !empty($old_image) ) ? $old_image : '';
+    		}
+    		$enc_password = md5($this->input->post('password'));
+	    	$post_data = array(
+	    	    'nama' => $this->input->post('nama'),
+	            'email' => $this->input->post('email'),
+	            'username' => $this->input->post('username'),
+	            'alamat' => $this->input->post('alamat'),
+	            'nohp' => $this->input->post('nohp'),
+	            'password' => $enc_password,
+	            'kodepos' => $this->input->post('kodepos'),
+	            'avatar' => $post_image,
+	    	);
+	    	// Jika tidak ada error upload gambar, maka kita update datanya 
+	    	if( empty($data['upload_error']) ) {
+	    		// Update artikel sesuai post_data dan id-nya
+		        $this->user_model->update_user($post_data, $id);
+		        redirect('home');
+	    	}
+	    }
+		
 	}
 
 

@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 Jul 2018 pada 05.27
--- Versi Server: 10.1.28-MariaDB
--- PHP Version: 5.6.32
+-- Generation Time: 25 Jul 2018 pada 21.31
+-- Versi Server: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -103,8 +101,10 @@ CREATE TABLE `gadget_table` (
 INSERT INTO `gadget_table` (`post_id`, `post_date`, `fk_brand_id`, `post_name`, `post_slug`, `post_keccpu`, `post_ram`, `post_battery`, `post_frontcam`, `post_backcam`, `post_int`, `post_thumbnail`, `post_status`, `date_created`, `stock`, `price`) VALUES
 (14, '2018-05-08 09:47:37', 3, 'Galaxy A1', 'galaxy-a1', '1.2', 3, 'Typical Capacity: 2630 mAh (Non-removable)', '12', '24', 4, '1.jpg', 1, '2018-05-08 09:47:37', 200, 4500000),
 (15, '2018-05-08 09:52:20', 1, 'A37', 'a37', '1.2', 2, 'Typical Capacity: 2630 mAh (Non-removable)', '8', '5', 2, 'oppo.PNG', 1, '2018-05-08 09:52:20', 900, 3500000),
-(16, '2018-05-15 05:17:40', 10, 'H12', 'h12', '12', 2, 'batterry lion', '21', '23', 256, '11.jpg', 1, '2018-05-15 05:17:40', 100, 3000000),
-(17, '2018-05-15 08:08:02', 7, 'K822', 'k822', '1.2', 2, 'kjqwheiwqh', '12', '32', 122, '13.jpg', 1, '2018-05-15 08:08:02', 300, 1500000);
+(16, '2018-05-15 05:17:40', 10, 'H12', 'h12', '12', 2, 'batterry lion', '21', '23', 256, '4.jpg', 1, '2018-05-15 05:17:40', 100, 3000000),
+(17, '2018-05-15 08:08:02', 7, 'K822', 'k822', '1.2', 2, 'kjqwheiwqh', '12', '32', 122, '13.jpg', 1, '2018-05-15 08:08:02', 300, 1500000),
+(18, '2018-07-25 21:07:24', 9, 'AS-123', 'as-123', 'Cepat asus', 2, 'Battry Lion asus', '20', '200', 64, '2.jpg', 1, '2018-07-25 21:07:24', 1000, 1500000),
+(19, '2018-07-25 21:09:26', 11, 'Bb-12', 'bb-12', 'asdkal', 12, 'alskd12', '12', '32', 12, '5.jpg', 1, '2018-07-25 21:09:26', 990, 1200000);
 
 -- --------------------------------------------------------
 
@@ -197,14 +197,18 @@ CREATE TABLE `transaksi` (
 
 INSERT INTO `transaksi` (`id_transaksi`, `data_created`, `nama_pembeli`, `alamat`, `no_hp`, `email`, `nama_barang`, `jumlah`, `harga_satuan`, `total_bayar`, `status`) VALUES
 (16, '2018-05-15 06:37:56', 'ade', 'jalan ade', '0912312731', 'ade.ndeman@gmail.com', 'A37', 2, 3500000, 7000000, 'lunas'),
-(17, '2018-05-15 06:58:51', 'wqe', 'kljqkle', '123123', 'ewqewq@we.wqe', 'H12', 2, 3000000, 6000000, 'lunas'),
-(18, '2018-05-15 07:04:27', 'ade', 'jlan sakues', '12345678', 'ade.ndeman@gmail.com', 'H12', 12, 3000000, 36000000, 'lunas'),
-(19, '2018-07-10 07:07:44', 'ade', 'jalan apa', '0081231232', 'ade.ndeman@gmail.com', 'H12', 2, 3000000, 6000000, 'lunas'),
-(20, '2018-07-24 15:23:34', 'muchsin', 'blitar', '00', '', 'H12', 88, 3000000, 264000000, 'baru'),
-(21, '2018-07-24 15:27:20', 'muchsin', 'b', '9', '', 'H12', 1, 3000000, 3000000, 'baru'),
-(22, '2018-07-24 15:40:14', 'muchsin', 'kk', '9', '', 'H12', 9, 3000000, 27000000, 'baru'),
-(23, '2018-07-25 03:22:41', 'muchsin', 'blitar', '087777', '', 'H12', 2, 3000000, 6000000, 'baru'),
-(24, '2018-07-25 03:24:34', 'muchsin', 'blitar', '087777', 'muchsinalkatiri36@yahoo.com', 'K822', 1, 1500000, 1500000, 'lunas');
+(29, '2018-07-25 19:28:53', 'Member Premium', 'Jalan premium', '999999', 'premium@pre.pre', 'Bb-12', 10, 1200000, 12000000, 'baru');
+
+--
+-- Trigger `transaksi`
+--
+DELIMITER $$
+CREATE TRIGGER `TG_updatestock` AFTER INSERT ON `transaksi` FOR EACH ROW BEGIN
+	UPDATE gadget_table SET stock=stock-NEW.jumlah
+    WHERE post_name=NEW.nama_barang;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -231,12 +235,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `fk_level_id`, `nama`, `email`, `username`, `password`, `kodepos`, `register_date`, `alamat`, `nohp`, `avatar`) VALUES
-(1, 1, 'Ade', 'ade@ade.com', 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 12312321, '2018-07-09 18:14:59', '', '', ''),
-(2, 2, 'monita', 'mon@mon.om', 'mon', '197639b278057c519189add5413712e3', 32123, '2018-07-09 18:16:43', '', '', ''),
-(3, 3, 'rosita', 'ros@ros.ros', 'ros', 'd36b548c4c7a2369249fb4cc0e2eba46', 823713, '2018-07-09 18:16:29', '', '', ''),
-(4, 3, 'qwe', 'qwe@qwe.wqe', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 123, '2018-07-09 19:04:10', '', '', ''),
-(5, 2, 'muchsin', 'muchsinalkatiri36@yahoo.com', 'muchsin', '4b73caa49187576af3c1dc9b97ed4047', 123, '2018-07-25 03:21:17', 'blitar', '087777', 'default.jpg'),
-(6, 2, 'windhu', 'mmm@mm', 'windu', 'bedba54c1833902a41b1d3f747da2234', 0, '2018-07-25 00:58:33', '', '', '');
+(1, 1, 'Ade Fajar', 'ade@ade.com', 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 161441, '2018-07-25 15:43:10', 'jalan ade', '012312312', 'default.jpg'),
+(2, 2, 'monita', 'mon@mon.om', 'mon', '197639b278057c519189add5413712e3', 32123, '2018-07-25 14:12:48', 'jalan adawqe', '081312312312', 'default.jpg'),
+(3, 3, 'rosita', 'ros@ros.ros', 'ros', 'd36b548c4c7a2369249fb4cc0e2eba46', 823713, '2018-07-25 15:03:46', 'jalan rosiii', '08123123', 'default.jpg'),
+(16, 3, 'Silver loo', 'silver@silver', 'silver', '97f014516561ef487ec368d6158eb3f4', 91238, '2018-07-25 17:51:48', 'jalanan silver', '1231231', 'default.jpg'),
+(17, 2, 'Member Premium', 'premium@pre.pre', 'premium', 'a288195832f8717bca4671416014a464', 8828828, '2018-07-25 18:21:15', 'Jalan premium', '999999', '3.png');
 
 --
 -- Indexes for dumped tables
@@ -302,49 +305,41 @@ ALTER TABLE `users`
 --
 ALTER TABLE `brand`
   MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `gadget_table`
 --
 ALTER TABLE `gadget_table`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `levels`
 --
 ALTER TABLE `levels`
   MODIFY `level_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `magazine`
 --
 ALTER TABLE `magazine`
   MODIFY `id_magazine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `stockprice`
 --
 ALTER TABLE `stockprice`
   MODIFY `id_sh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -360,7 +355,6 @@ ALTER TABLE `gadget_table`
 --
 ALTER TABLE `stockprice`
   ADD CONSTRAINT `fk_tipe_gadget` FOREIGN KEY (`fk_tipe`) REFERENCES `gadget_table` (`post_id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

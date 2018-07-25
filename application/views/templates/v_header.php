@@ -56,6 +56,11 @@ jQuery.noConflict()(function ($) {
       <li><a href="<?php echo site_url() ?>gadget">Gadget</a>
         <!-- sub menu -->
         <ol>
+        <?php if($this->session->userdata('logged_in')) : ?>
+            <?php if ($this->session->userdata('fk_level_id')=='2') :?>
+              <li><?php echo anchor('gadget/create', 'Sell Gadget'); ?></li>
+            <?php endif; ?>
+        <?php endif; ?>          
           <li><?php echo anchor('brand', 'Brand'); ?></li>
         </ol>
       </li>
@@ -73,13 +78,14 @@ jQuery.noConflict()(function ($) {
             <?php endif; ?>
 
             <?php if($this->session->userdata('logged_in')) : ?>
-              <div class="btn-group" role="group" aria-label="Data baru">
+              <div class="btn-group" role="group" aria-label="Data baru">            
                 <li><?php echo anchor('user/detail', $this->session->userdata('username'), array('class' => 'btn btn-outline-light')); ?>
                 <ol>         
-                  <?php if ($this->session->userdata('fk_level_id')=='1') :?>
-                <li><?php echo anchor(base_url().'admin', 'ADMIN', array('class' => 'btn btn-outline-light')); ?>
-                  <?php endif; ?>
-                <li><?php echo anchor('user/logout', 'LOGOUT', array('class' => 'btn btn-outline-light')); ?>
+              <?php if ($this->session->userdata('fk_level_id')=='1') :?>
+                <li><?php echo anchor(base_url().'admin', 'Admin', array('class' => 'btn btn-outline-light')); ?>
+              <?php endif; ?>
+                <li><?php echo anchor(base_url().'user/detail', 'Change Profile', array('class' => 'btn btn-outline-light')); ?>
+                <li><?php echo anchor('user/logout', 'Log Out', array('class' => 'btn btn-outline-light')); ?>
                 </ol>
                 </li>
               </div>

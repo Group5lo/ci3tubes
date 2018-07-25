@@ -7,7 +7,6 @@
   </div>
   </div>
   <div class="one">
-    <?php echo anchor('category/create', 'Tambah Category', array('class' => 'button')); ?>
   </div>
   <?php if( !empty($category) ) : ?>
 

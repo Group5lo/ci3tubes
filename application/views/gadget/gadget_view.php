@@ -2,10 +2,11 @@
 
 
         <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap.min.css">
+
 <div id="container">
   <div class="one">
   <div class="heading_bg">
-    <h2><?php echo $page_title ?></h2>
+    <h1><?php echo $page_title ?></h1>
   </div>
   </div>
   <div class="one">
@@ -15,12 +16,12 @@
     <?php
       foreach ($all_gadget as $key) :
     ?>
-            <div class="one-third last">
+            <div style="margin-left: 50px" class="one-fourth">
               <hr>
                 <center><h2><?php echo word_limiter($key->post_name, 10) ?></h2></center>
               
               <?php if( $key->post_thumbnail ) : ?><center>
-              <img class="card-img-top" height="300px"  src="<?php echo base_url() .'uploads/'. $key->post_thumbnail ?>" alt="Card image cap">
+              <img class="card-img-top" height="320px"  src="<?php echo base_url() .'uploads/'. $key->post_thumbnail ?>" alt="Card image cap">
               
               <!-- Jika tidak ada thumbnail, gunakan holder.js -->
               <?php ; else : ?>

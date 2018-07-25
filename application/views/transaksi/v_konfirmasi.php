@@ -8,14 +8,14 @@ $this->session->set_userdata('total_bayar', $total_bayar);
 <div id="container">
   <div class="one">
   <div class="heading_bg">
-    <h2><?php echo $page_title ?></h2>
+    <h1><?php echo $page_title ?></h1>
   </div>
   <br>
     <center>
       <Form method="POST">
       <table class="table">
       	 <tr>
-          <td rowspan="10"><img class="card-img-top" style="height:300px; width: 200px;  " src="<?php echo base_url() .'uploads/'. $gadget->post_thumbnail ?>" alt="Card image cap"></td>
+          <td rowspan="10"><center><br><img class="card-img-top" style="height:300px; width: 300px;  " src="<?php echo base_url() .'uploads/'. $gadget->post_thumbnail ?>" alt="Card image cap"></td>
         </tr>
         <tr>
           <td>

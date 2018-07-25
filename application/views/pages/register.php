@@ -16,35 +16,35 @@
 					<?php echo form_open('user/register', array('class' => 'needs-validation', 'novalidate' => '')); ?>
 					<div class="form-group">
 						<label>Nama Lengkap</label>
-						<input type="text" class="form-control" name="nama" placeholder="Nama Lengkap">
+						<input type="text" class="form-control" name="nama" value="<?php echo set_value('nama') ?>" placeholder="Nama Lengkap">
 					</div>
 					<div class="form-group">
 						<label>Kodepos</label>
-						<input type="text" class="form-control" name="kodepos" placeholder="Kodepos">
+						<input type="text" class="form-control" name="kodepos" value="<?php echo set_value('kodepos') ?>" placeholder="Kodepos">
 					</div>
 					<div class="form-group">
 						<label>Email</label>
-						<input type="email" class="form-control" name="email" placeholder="Email">
+						<input type="email" class="form-control" name="email" value="<?php echo set_value('email') ?>" placeholder="Email">
 					</div>
 					<div class="form-group">
 						<label>Username</label>
-						<input type="text" class="form-control" name="username" placeholder="Username">
+						<input type="text" class="form-control" name="username" value="<?php echo set_value('username') ?>" placeholder="Username">
 					</div>
 					<div class="form-group">
 						<label>Alamat</label>
-						<input type="text" class="form-control" name="alamat" placeholder="Alamat">
+						<input type="text" class="form-control" name="alamat" value="<?php echo set_value('alamat') ?>" placeholder="Alamat">
 					</div>
 					<div class="form-group">
 						<label>No HP</label>
-						<input type="text" class="form-control" name="nohp" placeholder="No Hp">
+						<input type="text" class="form-control" name="nohp" value="<?php echo set_value('nohp') ?>" placeholder="No Hp">
 					</div>
 					<div class="form-group">
 						<label>Password</label>
-						<input type="password" class="form-control" name="password" placeholder="Password">
+						<input type="password" class="form-control" name="password" value="<?php echo set_value('password') ?>" placeholder="Password">
 					</div>
 					<div class="form-group">
 						<label>Konfirmasi Password</label>
-						<input type="password" class="form-control" name="password2" placeholder="Ulangi Password">
+						<input type="password" class="form-control" name="password2" value="<?php echo set_value('password2') ?>" placeholder="Ulangi Password">
 					</div>
 					<div class="form-group">
 					    <label for="">Pilih Paket Membership</label>
