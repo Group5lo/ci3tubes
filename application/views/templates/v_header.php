@@ -73,11 +73,18 @@ jQuery.noConflict()(function ($) {
             <?php endif; ?>
 
             <?php if($this->session->userdata('logged_in')) : ?>
-              <li class="nav-item">
+              <div class="btn-group" role="group" aria-label="Data baru">
+                <li><?php echo anchor('user/detail', $this->session->userdata('username'), array('class' => 'btn btn-outline-light')); ?>
+                <ol>
+                <li><?php echo anchor('user/logout', 'LOGOUT', array('class' => 'btn btn-outline-light')); ?>
+                </ol>
+                </li>
+              </div>
+<!--               <li class="nav-item">
                 <a class="btn btn-outline-danger" href="<?php echo base_url() ?>user/logout" onClick="return confirm('Apakah anda yakin ingin Logout?')">
                   <font>Logout</font>
                 </a>
-              </li>
+              </li> -->
             <?php endif; ?>
 
     </ol>

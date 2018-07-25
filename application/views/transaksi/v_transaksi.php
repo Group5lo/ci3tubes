@@ -35,15 +35,18 @@
         <tr>
           <td>Email</td>
           <td><?php echo ( $user->email ) ?></td>
+          <input type="hidden" name="email" value="<?php echo $user->email ?>" >
         </tr>
         <tr>
         <tr>
           <td>Alamat</td>
-          <td><input type="text"    class="form-control" name="alamat" required="required" placeholder="Alamat" ></td>
+          <td><?php echo ( $user->alamat ) ?></td>
+          <input type="hidden" name="alamat" value="<?php echo $user->alamat ?>" >
         </tr>
         <tr>
           <td>No. HP</td>
-          <td><input type="number"    class="form-control" name="nohp" required="required" placeholder="No. Tlp" ></td>
+          <td><?php echo ( $user->nohp ) ?></td>
+          <input type="hidden" name="nohp" value="<?php echo $user->nohp ?>" >
         </tr>
         <tr>
         <tr>

@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 10 Jul 2018 pada 09.14
--- Versi Server: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Generation Time: 25 Jul 2018 pada 05.27
+-- Versi Server: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -197,7 +199,12 @@ INSERT INTO `transaksi` (`id_transaksi`, `data_created`, `nama_pembeli`, `alamat
 (16, '2018-05-15 06:37:56', 'ade', 'jalan ade', '0912312731', 'ade.ndeman@gmail.com', 'A37', 2, 3500000, 7000000, 'lunas'),
 (17, '2018-05-15 06:58:51', 'wqe', 'kljqkle', '123123', 'ewqewq@we.wqe', 'H12', 2, 3000000, 6000000, 'lunas'),
 (18, '2018-05-15 07:04:27', 'ade', 'jlan sakues', '12345678', 'ade.ndeman@gmail.com', 'H12', 12, 3000000, 36000000, 'lunas'),
-(19, '2018-07-10 07:07:44', 'ade', 'jalan apa', '0081231232', 'ade.ndeman@gmail.com', 'H12', 2, 3000000, 6000000, 'lunas');
+(19, '2018-07-10 07:07:44', 'ade', 'jalan apa', '0081231232', 'ade.ndeman@gmail.com', 'H12', 2, 3000000, 6000000, 'lunas'),
+(20, '2018-07-24 15:23:34', 'muchsin', 'blitar', '00', '', 'H12', 88, 3000000, 264000000, 'baru'),
+(21, '2018-07-24 15:27:20', 'muchsin', 'b', '9', '', 'H12', 1, 3000000, 3000000, 'baru'),
+(22, '2018-07-24 15:40:14', 'muchsin', 'kk', '9', '', 'H12', 9, 3000000, 27000000, 'baru'),
+(23, '2018-07-25 03:22:41', 'muchsin', 'blitar', '087777', '', 'H12', 2, 3000000, 6000000, 'baru'),
+(24, '2018-07-25 03:24:34', 'muchsin', 'blitar', '087777', 'muchsinalkatiri36@yahoo.com', 'K822', 1, 1500000, 1500000, 'lunas');
 
 -- --------------------------------------------------------
 
@@ -213,18 +220,23 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `kodepos` int(10) NOT NULL,
-  `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `register_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `alamat` varchar(100) NOT NULL,
+  `nohp` varchar(100) NOT NULL,
+  `avatar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`user_id`, `fk_level_id`, `nama`, `email`, `username`, `password`, `kodepos`, `register_date`) VALUES
-(1, 1, 'Ade', 'ade@ade.com', 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 12312321, '2018-07-09 18:14:59'),
-(2, 2, 'monita', 'mon@mon.om', 'mon', '197639b278057c519189add5413712e3', 32123, '2018-07-09 18:16:43'),
-(3, 3, 'rosita', 'ros@ros.ros', 'ros', 'd36b548c4c7a2369249fb4cc0e2eba46', 823713, '2018-07-09 18:16:29'),
-(4, 3, 'qwe', 'qwe@qwe.wqe', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 123, '2018-07-09 19:04:10');
+INSERT INTO `users` (`user_id`, `fk_level_id`, `nama`, `email`, `username`, `password`, `kodepos`, `register_date`, `alamat`, `nohp`, `avatar`) VALUES
+(1, 1, 'Ade', 'ade@ade.com', 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 12312321, '2018-07-09 18:14:59', '', '', ''),
+(2, 2, 'monita', 'mon@mon.om', 'mon', '197639b278057c519189add5413712e3', 32123, '2018-07-09 18:16:43', '', '', ''),
+(3, 3, 'rosita', 'ros@ros.ros', 'ros', 'd36b548c4c7a2369249fb4cc0e2eba46', 823713, '2018-07-09 18:16:29', '', '', ''),
+(4, 3, 'qwe', 'qwe@qwe.wqe', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 123, '2018-07-09 19:04:10', '', '', ''),
+(5, 2, 'muchsin', 'muchsinalkatiri36@yahoo.com', 'muchsin', '4b73caa49187576af3c1dc9b97ed4047', 123, '2018-07-25 03:21:17', 'blitar', '087777', 'default.jpg'),
+(6, 2, 'windhu', 'mmm@mm', 'windu', 'bedba54c1833902a41b1d3f747da2234', 0, '2018-07-25 00:58:33', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -290,41 +302,49 @@ ALTER TABLE `users`
 --
 ALTER TABLE `brand`
   MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
   MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `gadget_table`
 --
 ALTER TABLE `gadget_table`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `levels`
 --
 ALTER TABLE `levels`
   MODIFY `level_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `magazine`
 --
 ALTER TABLE `magazine`
   MODIFY `id_magazine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `stockprice`
 --
 ALTER TABLE `stockprice`
   MODIFY `id_sh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -340,6 +360,7 @@ ALTER TABLE `gadget_table`
 --
 ALTER TABLE `stockprice`
   ADD CONSTRAINT `fk_tipe_gadget` FOREIGN KEY (`fk_tipe`) REFERENCES `gadget_table` (`post_id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

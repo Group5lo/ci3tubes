@@ -208,4 +208,13 @@ class User extends CI_Controller{
 		$this->load->view("templates/v_footer");
 	}
 
+	public function detail(){
+
+		$data['page_title'] = 'Pembelian berhasil';
+		
+		$this->load->view('templates/v_header');
+		$this->load->view('page/myprofil');
+		$this->load->view('templates/v_footer');
+	}
+
 }
