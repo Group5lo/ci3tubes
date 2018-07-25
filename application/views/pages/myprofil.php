@@ -1,40 +1,59 @@
-<div class="container" ">
-<h3><span class="fa fa-briefcase"></span>  Edit Barang</h3>
-<a class="btn" href="databarang.php"><span class="fa fa-arrow-left"></span>  Kembali</a>
-<div class="row">  
-  <div class = "col-lg-6">       
-    <form action="" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="id_barang" value="<?php echo $d['id_barang']; ?>" />
-      <table class="table">
-        <tr>
-          <td>Nama Barang</td>
-          <td><input type="text" class="form-control" name="nama" required="required" value="<?php echo $d['nama_barang'] ?>"></td>
-        </tr>
-        <tr>
-          <td>Harga</td>
-          <td><input type="text" class="form-control" name="harga" required="required" value="<?php echo $d['harga'] ?>"></td>
-        </tr>
-        <tr>
-          <td>Gambar</td>
-          <td><input type="file" class="form-control" name="gambar" value="../images/<?php $d['gambar'] ?>"</td>
-        </tr>
-        <tr>
-          <td>Detail</td>
-          <td><input type="text" class="form-control" name="detail" required="required" value="<?php echo $d['detail'] ?>"></td>
-        </tr>
-        <tr>
-          <td>Qty</td>
-          <td><input type="text" class="form-control" name="qty" required="required" value="<?php echo $d['qty'] ?>"></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit" class="btn btn-info" value="Simpan" name="simpan" ></td>
-        </tr>
-      </table>
-    </form>
+
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/css/bootstrap.min.css'; ?>">
+
+<div id="container">
+  <div class="one">
+  <div class="heading_bg">
+    <h2><?php echo $page_title ?></h2>
+    <a class="btn" href="<?php echo base_url().'user/edit_user' ?>">
+      <?php if ($user->fk_level_id=='2' || $user->fk_level_id=='1') :?>
+      <span class="fa fa-gear"></span>
+      <?php endif; ?>
+    </a>
   </div>
-  <div class="col-lg-6">
-    <img style='width:200px;height:280px' src="<?php echo "../images/".$d['gambar']; ?>"> 
+  <br>
+      <div class="row">  
+      <div class = "col-lg-6">       
+        <form action="#" id="contact_form" method="post">
+          <fieldset>
+          <tr>
+          <td>Nama :</td>
+          <td><input type="text" class="form-control" name="tipe" value="<?php echo ( $user->nama ) ?>" readonly></td>
+          </tr>
+          </fieldset>
+          <fieldset>
+          <tr>
+          <td>Username :</td>
+          <td><input type="text" class="form-control" name="tipe" value="<?php echo ( $user->username ) ?>" readonly></td>
+          </tr>
+          </fieldset>
+          <fieldset>
+          <tr>
+          <td>Email :</td>
+          <td><input type="text" class="form-control" name="tipe" value="<?php echo ( $user->email ) ?>" readonly></td>
+          </tr>
+          </fieldset>
+          <fieldset>
+          <tr>
+          <td>Alamat :</td>
+          <td><input type="text" class="form-control" name="tipe" value="<?php echo ( $user->alamat ) ?>" readonly></td>
+          </tr>
+          </fieldset>
+          <fieldset>
+          <tr>
+          <td>No HP</td>
+          <td><input type="text" class="form-control" name="tipe" value="<?php echo ( $user->nohp ) ?>" readonly></td>
+          </tr>
+          </fieldset>
+        </form>
+      </div>
+      <div class="col-lg-6">
+        <img style='width:280px;height:280px; border-radius: 50%;' src="<?php echo "../img/".$user->avatar; ?>"> 
+      </div>
+    </div>
   </div>
+  <div style="clear:both; height: 40px"></div>
 </div>
-</div>
+
+<script src="<?php echo base_url() ?>assets/js/holder.min.js"></script>

@@ -31,6 +31,14 @@
 						<input type="text" class="form-control" name="username" placeholder="Username">
 					</div>
 					<div class="form-group">
+						<label>Alamat</label>
+						<input type="text" class="form-control" name="alamat" placeholder="Alamat">
+					</div>
+					<div class="form-group">
+						<label>No HP</label>
+						<input type="text" class="form-control" name="nohp" placeholder="No Hp">
+					</div>
+					<div class="form-group">
 						<label>Password</label>
 						<input type="password" class="form-control" name="password" placeholder="Password">
 					</div>

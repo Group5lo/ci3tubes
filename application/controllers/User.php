@@ -18,6 +18,8 @@ class User extends CI_Controller{
 		$data['page_title'] = 'Sign Up';
 
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
+		$this->form_validation->set_rules('nohp', 'Nohp', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
 		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required');
@@ -208,13 +210,81 @@ class User extends CI_Controller{
 		$this->load->view("templates/v_footer");
 	}
 
-	public function detail(){
+	public function detail($id=''){
 
-		$data['page_title'] = 'Pembelian berhasil';
-		
+		$data['page_title'] = 'Profil User';
+
+
+		$data['user'] = $this->user_model->get_users_by_id($id); 
+
 		$this->load->view('templates/v_header');
-		$this->load->view('page/myprofil');
+		$this->load->view('pages/myprofil', $data);
 		$this->load->view('templates/v_footer');
 	}
+
+	public function ganti_gambar(){
+
+		$data['page_title'] = 'Gambar Profil';
+		$this->load->helper('form');
+
+			if ( isset($_FILES['thumbnail']) && $_FILES['thumbnail']['size'] > 0 )
+    		{
+    			// Konfigurasi folder upload & file yang diijinkan
+    			// Jangan lupa buat folder uploads di dalam ci3-course
+    			$config['upload_path']          = './uploads/user/';
+    	        $config['allowed_types']        = 'gif|jpg|png';
+    	        $config['max_size']             = 2048;
+    	        // Load library upload
+    	        $this->load->library('upload', $config);
+    	        // Apakah file berhasil diupload?
+    	        if ( ! $this->upload->do_upload('thumbnail'))
+    	        {
+    	        	$data['upload_error'] = $this->upload->display_errors();
+    	        	$post_image = '';
+    	        	// Kita passing pesan error upload ke view supaya user mencoba upload ulang
+    	            $this->load->view('templates/v_header');
+    	            $this->load->view('pages/ganti_gambar', $data);
+    	            $this->load->view('templates/v_footer'); 
+    	        } else {
+    	        	// Simpan nama file-nya jika berhasil diupload
+    	            $img_data = $this->upload->data();
+    	            $post_image = $img_data['file_name'];
+    	        	
+    	        }
+    		} else {
+    			// User tidak upload gambar, jadi kita kosongkan field ini
+    			$post_image = '';
+    		}
+
+		$this->load->view('templates/v_header');
+		$this->load->view('pages/ganti_gambar', $data);
+		$this->load->view('templates/v_footer');
+	}
+
+	public function edit_user($id=''){
+
+		$data['page_title'] = 'Edit User';
+		$data['user'] = $this->user_model->get_users_by_id($id); 
+
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]');
+
+		if($this->form_validation->run() === FALSE){
+			$this->load->view('templates/v_header');
+			$this->load->view('pages/edit_user', $data);
+			$this->load->view('templates/v_footer');
+		} else {
+			// Encrypt password
+			$enc_password = md5($this->input->post('password'));
+
+			$this->user_model->update($enc_password);
+
+			// Set message
+			$this->session->set_flashdata('user_registered', 'Anda berhasil memperbarui data.');
+
+			redirect('home');
+		}
+	}
+
 
 }

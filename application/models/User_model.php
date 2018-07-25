@@ -60,15 +60,36 @@ class User_model extends CI_Model
             'nama' => $this->input->post('nama'),
             'email' => $this->input->post('email'),
             'username' => $this->input->post('username'),
+            'alamat' => $this->input->post('alamat'),
+            'nohp' => $this->input->post('nohp'),
             'password' => $enc_password,
             'kodepos' => $this->input->post('kodepos'),
-            'fk_level_id' => $this->input->post('membership')
+            'fk_level_id' => $this->input->post('membership'),
+            'avatar' => 'default.jpg'
         );
 
         // Insert user
         return $this->db->insert('users', $data);
     }
 
+
+    public function update($enc_password){
+        // Array data user 
+        $data = array(
+            'nama' => $this->update->post('nama'),
+            'email' => $this->update->post('email'),
+            'username' => $this->update->post('username'),
+            'alamat' => $this->update->post('alamat'),
+            'nohp' => $this->update->post('nohp'),
+            'password' => $enc_password,
+            'kodepos' => $this->input->post('kodepos'),
+            'fk_level_id' => $this->input->post('membership'),
+            'avatar' => 'default.jpg'
+        );
+
+        // Insert user
+        return $this->db->insert('users', $data);
+    }
     // Proses login user
     public function login($username, $password){
         // Validasi
@@ -116,15 +137,15 @@ class User_model extends CI_Model
         }
     }
 
-    function get_users_by_id($id)
-    {
-         // Inner Join dengan table brand
-        $this->db->select ( 'users' );
-        // $this->db->join('brand', 'brand.brand_id = gadget_table.fk_brand_id');
-        $id = $this->session->userdata('user_id') ;
+         public function get_users_by_id($id)
+        {
+             // Inner Join dengan table brand
+            $this->db->select ( '*' );
+            // $this->db->join('brand', 'brand.brand_id = gadget_table.fk_brand_id');
+            $id = $this->session->userdata('user_id') ;
 
-        $query = $this->db->get_where('users', array('users.user_id' => $id));
-                    
-        return $query->row();
-    }
+            $query = $this->db->get_where('users', array('users.user_id' => $id));
+                        
+            return $query->row();
+        }
 }

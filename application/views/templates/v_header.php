@@ -75,7 +75,10 @@ jQuery.noConflict()(function ($) {
             <?php if($this->session->userdata('logged_in')) : ?>
               <div class="btn-group" role="group" aria-label="Data baru">
                 <li><?php echo anchor('user/detail', $this->session->userdata('username'), array('class' => 'btn btn-outline-light')); ?>
-                <ol>
+                <ol>         
+                  <?php if ($this->session->userdata('fk_level_id')=='1') :?>
+                <li><?php echo anchor(base_url().'admin', 'ADMIN', array('class' => 'btn btn-outline-light')); ?>
+                  <?php endif; ?>
                 <li><?php echo anchor('user/logout', 'LOGOUT', array('class' => 'btn btn-outline-light')); ?>
                 </ol>
                 </li>
